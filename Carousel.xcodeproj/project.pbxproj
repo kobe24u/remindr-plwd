@@ -7,14 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9AB99A87405B79D74F585971 /* Pods_Carousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */; };
 		BF6C3C7D1E8739C900DA9297 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */; };
-		BF6C3C7F1E8739C900DA9297 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C7E1E8739C900DA9297 /* ViewController.swift */; };
 		BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6C3C801E8739C900DA9297 /* Main.storyboard */; };
 		BF6C3C851E8739C900DA9297 /* Carousel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C831E8739C900DA9297 /* Carousel.xcdatamodeld */; };
 		BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF6C3C861E8739C900DA9297 /* Assets.xcassets */; };
 		BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6C3C881E8739C900DA9297 /* LaunchScreen.storyboard */; };
 		BF6C3C951E8739C900DA9297 /* CarouselTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C941E8739C900DA9297 /* CarouselTests.swift */; };
 		BF6C3CA01E8739C900DA9297 /* CarouselUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C9F1E8739C900DA9297 /* CarouselUITests.swift */; };
+		BF6C3CAE1E87433300DA9297 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3CAD1E87433300DA9297 /* PhotoCollectionViewCell.swift */; };
+		BF6C3CB11E8748F600DA9297 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3CB01E8748F600DA9297 /* Photo.swift */; };
+		BF6C3CB31E874A8300DA9297 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3CB21E874A8300DA9297 /* PhotoViewController.swift */; };
+		BF6C3D441E87932500DA9297 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3D431E87932500DA9297 /* WeatherModel.swift */; };
+		F816D4A01E8C665900BF3995 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D49F1E8C665900BF3995 /* Reachability.swift */; };
+		F816D4A21E8C6DB900BF3995 /* FavouritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4A11E8C6DB900BF3995 /* FavouritesTableViewController.swift */; };
+		F816D4A41E8C6E0600BF3995 /* Favourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4A31E8C6E0600BF3995 /* Favourite.swift */; };
+		F816D4A61E8C6E3900BF3995 /* FavouriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4A51E8C6E3900BF3995 /* FavouriteCell.swift */; };
+		F816D4AC1E8C6ED300BF3995 /* ViewFavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4AB1E8C6ED300BF3995 /* ViewFavouriteViewController.swift */; };
+		F88C5C111E8FF1A6000F0965 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C5C101E8FF1A6000F0965 /* Extensions.swift */; };
+		F88C5C131E90D6E2000F0965 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */; };
+		F89698EF1E95D72B00777AFC /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89698EE1E95D72B00777AFC /* Geofence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +47,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0700B11A208A0EB35F9D44EE /* Pods-Carousel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carousel.release.xcconfig"; path = "Pods/Target Support Files/Pods-Carousel/Pods-Carousel.release.xcconfig"; sourceTree = "<group>"; };
+		B7A8AE85ABF763B2B5E32E31 /* Pods-Carousel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carousel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Carousel/Pods-Carousel.debug.xcconfig"; sourceTree = "<group>"; };
 		BF6C3C791E8739C900DA9297 /* Carousel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carousel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF6C3C7E1E8739C900DA9297 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BF6C3C811E8739C900DA9297 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF6C3C841E8739C900DA9297 /* Carousel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Carousel.xcdatamodel; sourceTree = "<group>"; };
 		BF6C3C861E8739C900DA9297 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +62,24 @@
 		BF6C3C9B1E8739C900DA9297 /* CarouselUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouselUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6C3C9F1E8739C900DA9297 /* CarouselUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselUITests.swift; sourceTree = "<group>"; };
 		BF6C3CA11E8739C900DA9297 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF6C3CAD1E87433300DA9297 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoCollectionViewCell.swift; path = ../PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		BF6C3CB01E8748F600DA9297 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		BF6C3CB21E874A8300DA9297 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		BF6C3D431E87932500DA9297 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		BF6EAB1F1E8CA19000A929DE /* Coffee Shop.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Coffee Shop.gpx"; sourceTree = "<group>"; };
+		BF6EAB201E8CA29800A929DE /* Comfort Food.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Comfort Food.gpx"; sourceTree = "<group>"; };
+		BF6EAB211E8CA2C200A929DE /* Football Team.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Football Team.gpx"; sourceTree = "<group>"; };
+		BF6EAB221E8CA2E800A929DE /* Holiday.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Holiday.gpx; sourceTree = "<group>"; };
+		BF6EAB231E8CA31F00A929DE /* Pizza.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Pizza.gpx; sourceTree = "<group>"; };
+		DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carousel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F816D49F1E8C665900BF3995 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		F816D4A11E8C6DB900BF3995 /* FavouritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouritesTableViewController.swift; sourceTree = "<group>"; };
+		F816D4A31E8C6E0600BF3995 /* Favourite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favourite.swift; sourceTree = "<group>"; };
+		F816D4A51E8C6E3900BF3995 /* FavouriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteCell.swift; sourceTree = "<group>"; };
+		F816D4AB1E8C6ED300BF3995 /* ViewFavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewFavouriteViewController.swift; sourceTree = "<group>"; };
+		F88C5C101E8FF1A6000F0965 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F89698EE1E95D72B00777AFC /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AB99A87405B79D74F585971 /* Pods_Carousel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2757D6553B51B5EE08F221A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B7A8AE85ABF763B2B5E32E31 /* Pods-Carousel.debug.xcconfig */,
+				0700B11A208A0EB35F9D44EE /* Pods-Carousel.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BF6C3C701E8739C900DA9297 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +124,8 @@
 				BF6C3C931E8739C900DA9297 /* CarouselTests */,
 				BF6C3C9E1E8739C900DA9297 /* CarouselUITests */,
 				BF6C3C7A1E8739C900DA9297 /* Products */,
+				B2757D6553B51B5EE08F221A /* Pods */,
+				CE7D777959859562713EA82C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +142,22 @@
 		BF6C3C7B1E8739C900DA9297 /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
+				F88C5C0F1E8FF18E000F0965 /* Helpers */,
+				BF6EAB241E8CA79000A929DE /* Location simulation files */,
+				BF6C3CB41E874A9000DA9297 /* Home Screen */,
+				BF6C3CAF1E8748E100DA9297 /* Model */,
+				BF6C3CAD1E87433300DA9297 /* PhotoCollectionViewCell.swift */,
 				BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */,
-				BF6C3C7E1E8739C900DA9297 /* ViewController.swift */,
 				BF6C3C801E8739C900DA9297 /* Main.storyboard */,
 				BF6C3C861E8739C900DA9297 /* Assets.xcassets */,
 				BF6C3C881E8739C900DA9297 /* LaunchScreen.storyboard */,
 				BF6C3C8B1E8739C900DA9297 /* Info.plist */,
+				F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */,
 				BF6C3C831E8739C900DA9297 /* Carousel.xcdatamodeld */,
+				F816D49F1E8C665900BF3995 /* Reachability.swift */,
+				F816D4A11E8C6DB900BF3995 /* FavouritesTableViewController.swift */,
+				F816D4A51E8C6E3900BF3995 /* FavouriteCell.swift */,
+				F816D4AB1E8C6ED300BF3995 /* ViewFavouriteViewController.swift */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -128,6 +180,53 @@
 			path = CarouselUITests;
 			sourceTree = "<group>";
 		};
+		BF6C3CAF1E8748E100DA9297 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BF6C3CB01E8748F600DA9297 /* Photo.swift */,
+				BF6C3D431E87932500DA9297 /* WeatherModel.swift */,
+				F816D4A31E8C6E0600BF3995 /* Favourite.swift */,
+				F89698EE1E95D72B00777AFC /* Geofence.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		BF6C3CB41E874A9000DA9297 /* Home Screen */ = {
+			isa = PBXGroup;
+			children = (
+				BF6C3CB21E874A8300DA9297 /* PhotoViewController.swift */,
+			);
+			name = "Home Screen";
+			sourceTree = "<group>";
+		};
+		BF6EAB241E8CA79000A929DE /* Location simulation files */ = {
+			isa = PBXGroup;
+			children = (
+				BF6EAB1F1E8CA19000A929DE /* Coffee Shop.gpx */,
+				BF6EAB201E8CA29800A929DE /* Comfort Food.gpx */,
+				BF6EAB211E8CA2C200A929DE /* Football Team.gpx */,
+				BF6EAB221E8CA2E800A929DE /* Holiday.gpx */,
+				BF6EAB231E8CA31F00A929DE /* Pizza.gpx */,
+			);
+			name = "Location simulation files";
+			sourceTree = "<group>";
+		};
+		CE7D777959859562713EA82C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F88C5C0F1E8FF18E000F0965 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F88C5C101E8FF1A6000F0965 /* Extensions.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +234,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF6C3CA41E8739C900DA9297 /* Build configuration list for PBXNativeTarget "Carousel" */;
 			buildPhases = (
+				ABBCAC8AE96E9CD9059D121E /* [CP] Check Pods Manifest.lock */,
 				BF6C3C751E8739C900DA9297 /* Sources */,
 				BF6C3C761E8739C900DA9297 /* Frameworks */,
 				BF6C3C771E8739C900DA9297 /* Resources */,
+				87DD71EB44990CDF927AAD0D /* [CP] Embed Pods Frameworks */,
+				2921836832FFD9D41D47418C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -239,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */,
+				F88C5C131E90D6E2000F0965 /* GoogleService-Info.plist in Resources */,
 				BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */,
 				BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */,
 			);
@@ -260,14 +363,72 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2921836832FFD9D41D47418C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Carousel/Pods-Carousel-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87DD71EB44990CDF927AAD0D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Carousel/Pods-Carousel-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ABBCAC8AE96E9CD9059D121E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BF6C3C751E8739C900DA9297 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF6C3C7F1E8739C900DA9297 /* ViewController.swift in Sources */,
+				F816D4A41E8C6E0600BF3995 /* Favourite.swift in Sources */,
+				F816D4A01E8C665900BF3995 /* Reachability.swift in Sources */,
+				BF6C3CAE1E87433300DA9297 /* PhotoCollectionViewCell.swift in Sources */,
 				BF6C3C851E8739C900DA9297 /* Carousel.xcdatamodeld in Sources */,
 				BF6C3C7D1E8739C900DA9297 /* AppDelegate.swift in Sources */,
+				F816D4A61E8C6E3900BF3995 /* FavouriteCell.swift in Sources */,
+				F89698EF1E95D72B00777AFC /* Geofence.swift in Sources */,
+				BF6C3CB11E8748F600DA9297 /* Photo.swift in Sources */,
+				F816D4A21E8C6DB900BF3995 /* FavouritesTableViewController.swift in Sources */,
+				BF6C3D441E87932500DA9297 /* WeatherModel.swift in Sources */,
+				BF6C3CB31E874A8300DA9297 /* PhotoViewController.swift in Sources */,
+				F816D4AC1E8C6ED300BF3995 /* ViewFavouriteViewController.swift in Sources */,
+				F88C5C111E8FF1A6000F0965 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +578,7 @@
 		};
 		BF6C3CA51E8739C900DA9297 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7A8AE85ABF763B2B5E32E31 /* Pods-Carousel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
@@ -425,11 +587,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		BF6C3CA61E8739C900DA9297 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0700B11A208A0EB35F9D44EE /* Pods-Carousel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
@@ -438,6 +602,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -518,6 +683,7 @@
 				BF6C3CA61E8739C900DA9297 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF6C3CA71E8739C900DA9297 /* Build configuration list for PBXNativeTarget "CarouselTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +692,7 @@
 				BF6C3CA91E8739C900DA9297 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF6C3CAA1E8739C900DA9297 /* Build configuration list for PBXNativeTarget "CarouselUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +701,7 @@
 				BF6C3CAC1E8739C900DA9297 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

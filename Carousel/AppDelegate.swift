@@ -7,16 +7,63 @@
 //
 
 import UIKit
+import CoreLocation
+import Firebase
+import UserNotifications
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
-
+    let locationManager = CLLocationManager()
+    var ref: FIRDatabaseReference?
+    var currentGeofence: Geofence? = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         // Override point for customization after application launch.
+        
+//        let tabController = self.window?.rootViewController as! UITabBarController
+//        let photoController = (tabController.viewControllers?[0])! as UIViewController
+//        let favNavController = tabController.viewControllers![1] as! UINavigationController
+//        //let favController = favNavController.topViewController as
+        
+        
+        // Enable local notifications
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+            guard error == nil else {
+                //Display Error.. Handle Error.. etc..
+                return
+            }
+            
+            if granted {
+                //Do stuff here..
+                
+                //Register for RemoteNotifications. Your Remote Notifications can display alerts now :)
+                application.registerForRemoteNotifications()
+            }
+            else {
+                //Handle user denying permissions..
+            }
+        }
+        
+        
+        FIRApp.configure()
+        
+        ref = FIRDatabase.database().reference()
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
+        startMonitoringGeofenceRegion()
+        
         return true
     }
 
@@ -86,6 +133,146 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    func handleEvent(forRegion region: CLRegion!) {
+        print("Geofence triggered!")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            handleEvent(forRegion: region)
+            print("I have entered \(region.identifier)")
+            
+            // Notify the user when they have entered a region
+            let title = "Good Job!"
+            let message = "You're back inside your safe zone: \(region.identifier). Your caregiver will be notified."
+            
+            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            
+            if UIApplication.shared.applicationState == .active {
+                // App is active, show an alert
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(alertAction)
+                UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                //self.present(alertController, animated: true, completion: nil)
+            } else {
+                // App is inactive, show a notification
+                let notification = UILocalNotification()
+                notification.alertTitle = title
+                notification.alertBody = message
+                UIApplication.shared.presentLocalNotificationNow(notification)
+                
+                
+                
+                
+                
+            }
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            handleEvent(forRegion: region)
+            print("Exited region \(region.identifier)")
+            // Notify the user when they have entered a region
+            let title = "Beware"
+            let message = "You are leaving your safe zone: \(region.identifier). Your caregiver will be notified."
+           
+            self.ref?.child("geofencing/testpatient/violated").setValue("true")
+
+            if UIApplication.shared.applicationState == .active {
+                // App is active, show an alert
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(alertAction)
+                UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                //self.present(alertController, animated: true, completion: nil)
+            } else {
+                // App is inactive, show a notification
+                let notification = UILocalNotification()
+                notification.alertTitle = title
+                notification.alertBody = message
+                UIApplication.shared.presentLocalNotificationNow(notification)
+            }
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        self.ref?.child("users/testpatient/patLat").setValue(String(locValue.latitude))
+        self.ref?.child("users/testpatient/patLng").setValue(String(locValue.longitude))
+        
+    }
+    
+    func startMonitoringGeofenceRegion()
+    {
+        self.ref?.child("geofencing").observe(.value, with: { (snapshot) in
+            
+            
+            // TODO: remove all exisiting geofencing
+            if let geofenceToRemove = self.currentGeofence {
+                self.removePreviousGeofence(previousGeofence: geofenceToRemove)
+            }
+            
+            
+            if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
+            {
+                let value = current.value as? NSDictionary
+                if let location = value?["locationName"] as? String
+                {
+                    print ("location name is \(location)")
+                    if let locationLat = value?["locLat"] as? String {
+                        if let locationLng = value?["locLng"] as? String {
+                            print ("lat and lng for location \(locationLat) \(locationLng)")
+                            if let range = value?["range"] as? Double {
+                                print("radius is \(range)")
+                                if let enabled = value?["enabled"] as? String {
+                                    print("enabled is \(enabled)")
+                                    if (enabled == "True")
+                                    {
+                                        self.currentGeofence = Geofence(locationName: location, locLat: Double(locationLat)!, locLng: Double(locationLng)!, radius: range, enabled: true)
+                                        
+                                        let lat = Double(locationLat)
+                                        let lng = Double(locationLng)
+                                        let loc = CLLocationCoordinate2D(latitude: lat!, longitude: lng!)
+                                        print("lat: \(lat)   lng: \(lng)")
+        
+                                        let region = (name: location, coordinate:loc)
+                                        let notificationRadius = range
+                                        let geofence = CLCircularRegion(center: region.coordinate, radius: CLLocationDistance(notificationRadius), identifier: location)
+                                        self.locationManager.startMonitoring(for: geofence)
+                                        print ("Started monitoring \(region.name)")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    func removePreviousGeofence(previousGeofence: Geofence)
+    {
+        
+        if (previousGeofence != nil)
+        {
+            let lat = previousGeofence.locLat
+            let lng = previousGeofence.locLng
+            let loc = CLLocationCoordinate2D(latitude: lat!, longitude: lng!)
+            let notificationRadius = previousGeofence.radius
+            let region = (name: previousGeofence.locationName, coordinate:loc)
+            
+            // set geofencing only if the user has chosen to keep notifications on
+
+            let geofence = CLCircularRegion(center: region.coordinate, radius:  CLLocationDistance(notificationRadius!), identifier: previousGeofence.locationName!)
+            locationManager.stopMonitoring(for: geofence)
         }
     }
 

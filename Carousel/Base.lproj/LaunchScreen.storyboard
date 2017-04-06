@@ -1,27 +1,78 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Vel-S3-AaD">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="3JS-8S-Hbe">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController id="Vel-S3-AaD" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="kCk-vJ-tKu"/>
+                        <viewControllerLayoutGuide type="bottom" id="mZn-fd-lUI"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="urK-et-zli">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start your brighter tomorrow" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHS-Sv-hgX">
+                                <rect key="frame" x="16" y="399" width="343" height="41"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ReMindr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lt1-I4-HiP">
+                                <rect key="frame" x="16" y="323" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Wfg-KD-5CM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newicon" translatesAutoresizingMaskIntoConstraints="NO" id="1oc-97-iqE">
+                                <rect key="frame" x="82" y="101" width="210" height="193"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUa-X2-Yi8">
+                                <rect key="frame" x="16" y="360" width="343" height="41"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.12156862745098039" green="0.77254901960784317" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="Lt1-I4-HiP" firstAttribute="leading" secondItem="aUa-X2-Yi8" secondAttribute="leading" id="3MZ-Nf-iPo"/>
+                            <constraint firstItem="mZn-fd-lUI" firstAttribute="top" secondItem="aUa-X2-Yi8" secondAttribute="bottom" constant="266" id="A3T-jj-FYT"/>
+                            <constraint firstItem="mZn-fd-lUI" firstAttribute="top" secondItem="NHS-Sv-hgX" secondAttribute="bottom" constant="227" id="Dkr-tR-Q53"/>
+                            <constraint firstItem="NHS-Sv-hgX" firstAttribute="top" secondItem="Lt1-I4-HiP" secondAttribute="bottom" constant="55" id="HB5-7p-4Bm"/>
+                            <constraint firstItem="Lt1-I4-HiP" firstAttribute="centerY" secondItem="urK-et-zli" secondAttribute="centerY" id="Ip4-Wx-mnU"/>
+                            <constraint firstItem="Lt1-I4-HiP" firstAttribute="top" secondItem="1oc-97-iqE" secondAttribute="bottom" constant="29" id="TBy-1B-YJS"/>
+                            <constraint firstItem="1oc-97-iqE" firstAttribute="top" secondItem="kCk-vJ-tKu" secondAttribute="bottom" constant="81" id="ZR4-V3-qS9"/>
+                            <constraint firstItem="Lt1-I4-HiP" firstAttribute="trailing" secondItem="urK-et-zli" secondAttribute="trailingMargin" id="eep-iB-lPh"/>
+                            <constraint firstItem="aUa-X2-Yi8" firstAttribute="top" secondItem="Lt1-I4-HiP" secondAttribute="bottom" constant="16" id="faa-dn-f3v"/>
+                            <constraint firstItem="1oc-97-iqE" firstAttribute="leading" secondItem="urK-et-zli" secondAttribute="leadingMargin" constant="66" id="iBE-Bq-HAL"/>
+                            <constraint firstItem="aUa-X2-Yi8" firstAttribute="leading" secondItem="NHS-Sv-hgX" secondAttribute="leading" id="l4u-Ta-AB2"/>
+                            <constraint firstItem="Lt1-I4-HiP" firstAttribute="leading" secondItem="urK-et-zli" secondAttribute="leadingMargin" id="lrP-JT-Z13"/>
+                            <constraint firstItem="Lt1-I4-HiP" firstAttribute="trailing" secondItem="aUa-X2-Yi8" secondAttribute="trailing" id="mf3-kv-ucJ"/>
+                            <constraint firstItem="1oc-97-iqE" firstAttribute="centerX" secondItem="Lt1-I4-HiP" secondAttribute="centerX" id="x5o-ka-KHe"/>
+                            <constraint firstItem="aUa-X2-Yi8" firstAttribute="trailing" secondItem="NHS-Sv-hgX" secondAttribute="trailing" id="xMz-KW-nwP"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H3r-EY-RmN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="-488.80000000000001" y="207.34632683658174"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="newicon" width="462" height="464"/>
+    </resources>
 </document>
