@@ -11,14 +11,16 @@ import CoreLocation
 import Firebase
 import UserNotifications
 import CoreData
+import UserNotificationsUI
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     let locationManager = CLLocationManager()
     var ref: FIRDatabaseReference?
     var currentGeofence: Geofence? = nil
+    var badgeCount: Int = 0
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -29,6 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //        let favNavController = tabController.viewControllers![1] as! UINavigationController
 //        //let favController = favNavController.topViewController as
         
+        badgeCount = 0
+        
+        UNUserNotificationCenter.current().delegate = self
         
         // Enable local notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
@@ -82,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -153,6 +158,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
             if UIApplication.shared.applicationState == .active {
                 // App is active, show an alert
+                
+                UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
+                
                 let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(alertAction)
@@ -160,15 +168,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 //self.present(alertController, animated: true, completion: nil)
             } else {
                 // App is inactive, show a notification
-                let notification = UILocalNotification()
-                notification.alertTitle = title
-                notification.alertBody = message
-                UIApplication.shared.presentLocalNotificationNow(notification)
-                
-                
-                
-                
-                
+                if #available(iOS 10.0, *)
+                {
+                    generateNotificationWithNoActions()
+                }
+                else
+                {
+                    let notification = UILocalNotification()
+                    notification.alertTitle = title
+                    notification.alertBody = message
+                    UIApplication.shared.presentLocalNotificationNow(notification)
+                }
             }
             
         }
@@ -187,16 +197,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             if UIApplication.shared.applicationState == .active {
                 // App is active, show an alert
                 let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(alertAction)
+                //let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                //alertController.addAction(alertAction)
                 UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
                 //self.present(alertController, animated: true, completion: nil)
             } else {
                 // App is inactive, show a notification
-                let notification = UILocalNotification()
-                notification.alertTitle = title
-                notification.alertBody = message
-                UIApplication.shared.presentLocalNotificationNow(notification)
+                if #available(iOS 10.0, *)
+                {
+                    generateLocalNotification()
+                }
+                else
+                {
+                    let notification = UILocalNotification()
+                    notification.alertTitle = title
+                    notification.alertBody = message
+                    UIApplication.shared.presentLocalNotificationNow(notification)
+                }
+
             }
             
         }
@@ -234,7 +252,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                 print("radius is \(range)")
                                 if let enabled = value?["enabled"] as? String {
                                     print("enabled is \(enabled)")
-                                    if (enabled == "True")
+                                    if (enabled == "true")
                                     {
                                         self.currentGeofence = Geofence(locationName: location, locLat: Double(locationLat)!, locLng: Double(locationLng)!, radius: range, enabled: true)
                                         
@@ -275,6 +293,113 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager.stopMonitoring(for: geofence)
         }
     }
+    
+    func generateLocalNotification() {
+        
+        badgeCount += 1
+        
+        // App is inactive, show a notification
+        let content = UNMutableNotificationContent()
+        content.title = "Beware"
+        content.body = "You are leaving your safe zone. Your caregiver will be informed."
+        content.sound = UNNotificationSound.default()
+        content.launchImageName = "home"
+        content.badge = badgeCount as NSNumber?
+        
+        guard let path = Bundle.main.path(forResource: "patientLeftIcon", ofType: "png") else { return }
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+            content.attachments = [attachment]
+        }
+        catch
+        {
+            print ("An error occurred while trying to attach an image to the notification")
+        }
+        
+        // Deliver the notification in five seconds.
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
+        let request = UNNotificationRequest.init(identifier: "geofenceNotification", content: content, trigger: trigger)
+        
+        
+        // Schedule the notification.
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+        
+        center.add(request, withCompletionHandler: {(error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
+            }
+        })
+        
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert,.sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        center.removeAllPendingNotificationRequests()
+        center.removeAllDeliveredNotifications()
+        
+        switch response.actionIdentifier {
+        case "justInform":
+            print ("cancelled")
+        case "showPatient":
+            print ("must show patient here")
+            badgeCount = 0
+            //            case "callPatient":
+        //                print ("must call patient here")
+        default:
+            print ("default action")
+        }
+        completionHandler()
+    }
+    
+    func generateNotificationWithNoActions()
+    {
+        
+        badgeCount = 0
+        // App is inactive, show a notification
+        let content = UNMutableNotificationContent()
+        content.title = "Well Done!"
+        content.body = "You have returned to your safe zone. Your caregiver will be informed."
+        content.sound = UNNotificationSound.default()
+        content.launchImageName = "home"
+        content.badge = badgeCount as NSNumber
+        
+        guard let path = Bundle.main.path(forResource: "patientBackIcon", ofType: "png") else { return }
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+            content.attachments = [attachment]
+        }
+        catch
+        {
+            print ("An error occurred while trying to attach an image to the notification")
+        }
+        
+        
+        // Deliver the notification in five seconds.
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
+        let request = UNNotificationRequest.init(identifier: "OtherNotification", content: content, trigger: trigger)
+        
+        
+        // Schedule the notification.
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+        
+        center.add(request, withCompletionHandler: {(error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
+            }
+        })
+        
+    }
+
 
 }
 

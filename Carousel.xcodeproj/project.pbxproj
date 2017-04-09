@@ -24,6 +24,8 @@
 		F816D4A41E8C6E0600BF3995 /* Favourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4A31E8C6E0600BF3995 /* Favourite.swift */; };
 		F816D4A61E8C6E3900BF3995 /* FavouriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4A51E8C6E3900BF3995 /* FavouriteCell.swift */; };
 		F816D4AC1E8C6ED300BF3995 /* ViewFavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4AB1E8C6ED300BF3995 /* ViewFavouriteViewController.swift */; };
+		F874473E1E9A148E009713AC /* patientBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F874473C1E9A148E009713AC /* patientBackIcon.png */; };
+		F874473F1E9A148E009713AC /* patientLeftIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F874473D1E9A148E009713AC /* patientLeftIcon.png */; };
 		F88C5C111E8FF1A6000F0965 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C5C101E8FF1A6000F0965 /* Extensions.swift */; };
 		F88C5C131E90D6E2000F0965 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */; };
 		F89698EF1E95D72B00777AFC /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89698EE1E95D72B00777AFC /* Geofence.swift */; };
@@ -77,6 +79,8 @@
 		F816D4A31E8C6E0600BF3995 /* Favourite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favourite.swift; sourceTree = "<group>"; };
 		F816D4A51E8C6E3900BF3995 /* FavouriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteCell.swift; sourceTree = "<group>"; };
 		F816D4AB1E8C6ED300BF3995 /* ViewFavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewFavouriteViewController.swift; sourceTree = "<group>"; };
+		F874473C1E9A148E009713AC /* patientBackIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patientBackIcon.png; sourceTree = "<group>"; };
+		F874473D1E9A148E009713AC /* patientLeftIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patientLeftIcon.png; sourceTree = "<group>"; };
 		F88C5C101E8FF1A6000F0965 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F89698EE1E95D72B00777AFC /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 		BF6C3C7B1E8739C900DA9297 /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
+				F874473B1E9A1465009713AC /* NotificationImages */,
 				F88C5C0F1E8FF18E000F0965 /* Helpers */,
 				BF6EAB241E8CA79000A929DE /* Location simulation files */,
 				BF6C3CB41E874A9000DA9297 /* Home Screen */,
@@ -217,6 +222,15 @@
 				DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F874473B1E9A1465009713AC /* NotificationImages */ = {
+			isa = PBXGroup;
+			children = (
+				F874473C1E9A148E009713AC /* patientBackIcon.png */,
+				F874473D1E9A148E009713AC /* patientLeftIcon.png */,
+			);
+			name = NotificationImages;
 			sourceTree = "<group>";
 		};
 		F88C5C0F1E8FF18E000F0965 /* Helpers */ = {
@@ -340,8 +354,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F874473E1E9A148E009713AC /* patientBackIcon.png in Resources */,
 				BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */,
 				F88C5C131E90D6E2000F0965 /* GoogleService-Info.plist in Resources */,
+				F874473F1E9A148E009713AC /* patientLeftIcon.png in Resources */,
 				BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */,
 				BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */,
 			);
