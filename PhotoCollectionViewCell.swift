@@ -83,13 +83,13 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
             photoTitleLabel.text = photo.title
             backgroundColorView.backgroundColor = photo.color
             audioURL = photo.audioURL
-            if photo.affinity == "good"
-            {
-                affinityLabel.image = #imageLiteral(resourceName: "smile")
-            }
-            else{
-                affinityLabel.image = #imageLiteral(resourceName: "terrified")
-            }
+//            if photo.affinity == "good"
+//            {
+//                affinityLabel.image = #imageLiteral(resourceName: "smile")
+//            }
+//            else{
+//                affinityLabel.image = #imageLiteral(resourceName: "terrified")
+//            }
             backgroundColorView.addSubview(playButton)
         } else {
             featuredImageView.image = nil

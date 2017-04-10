@@ -16,15 +16,13 @@ class Photo
     var featuredImage: UIImage
     var color: UIColor
     var audioURL: String?
-    var affinity: String
     
-    init(title: String, featuredImage: UIImage, color: UIColor, audioURL: String, affinity: String)
+    init(title: String, featuredImage: UIImage, color: UIColor, audioURL: String)
     {
         self.title = title
         self.featuredImage = featuredImage
         self.color = color
         self.audioURL = audioURL
-        self.affinity = affinity
     }
     
 //    static func fetchInterests() -> [Photo]

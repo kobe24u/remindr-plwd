@@ -317,7 +317,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         {
             print ("An error occurred while trying to attach an image to the notification")
         }
-        
         // Deliver the notification in five seconds.
         let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
         let request = UNNotificationRequest.init(identifier: "geofenceNotification", content: content, trigger: trigger)
@@ -361,16 +360,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func generateNotificationWithNoActions()
     {
         
-        badgeCount = 0
+        badgeCount += 1
         // App is inactive, show a notification
         let content = UNMutableNotificationContent()
-        content.title = "Well Done!"
-        content.body = "You have returned to your safe zone. Your caregiver will be informed."
+        content.title = "Patient has returned to safe zone"
+        content.body = "Your patient is back inside the safe zone"
         content.sound = UNNotificationSound.default()
-        content.launchImageName = "home"
         content.badge = badgeCount as NSNumber
+        content.launchImageName = "home"
         
-        guard let path = Bundle.main.path(forResource: "patientBackIcon", ofType: "png") else { return }
+        guard let path = Bundle.main.path(forResource: "patientBackIcon New", ofType: "png") else { return }
         let url = URL(fileURLWithPath: path)
         
         do {
@@ -381,7 +380,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         {
             print ("An error occurred while trying to attach an image to the notification")
         }
-        
         
         // Deliver the notification in five seconds.
         let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)

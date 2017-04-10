@@ -25,6 +25,7 @@ class PhotoViewController: UIViewController
     @IBOutlet weak var locationLabel: UILabel!
     
     
+
     
     var photos = [Photo]()
     let cellScaling: CGFloat = 0.6
@@ -96,7 +97,7 @@ class PhotoViewController: UIViewController
         self.view.addSubview(activityView)
         activityView.startAnimating()
         
-        ref.child("Photos").observe(.value, with: {(snapshot) in
+        ref.child("Photos/testpatient").observe(.value, with: {(snapshot) in
             
             // code to execute when child is changed
             // Take the value from snapshot and add it to the favourites list
@@ -106,7 +107,6 @@ class PhotoViewController: UIViewController
             {
                 let value = current.value as? NSDictionary
                 let Description = value?["Description"] as? String ?? ""
-                let affinity = value?["affinity"]
                 let photoURL = value?["photoURL"]
                 let audioURL = value?["audioURL"]
                 if let imageURL = photoURL {
@@ -122,7 +122,7 @@ class PhotoViewController: UIViewController
                         let addingPhoto = UIImage(data: data!)
                         
                         
-                        let newPhoto = Photo(title: Description, featuredImage: addingPhoto!, color: UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 0.6), audioURL: audioURL as! String, affinity: affinity as! String)
+                        let newPhoto = Photo(title: Description, featuredImage: addingPhoto!, color: UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 0.6), audioURL: audioURL as! String)
                         
                         self.photos.append(newPhoto)
                         
@@ -140,6 +140,12 @@ class PhotoViewController: UIViewController
         })
         
     }
+    
+    @IBAction func didClickPanicButton(_ sender: Any) {
+        
+        
+    }
+    
     
 }
 
