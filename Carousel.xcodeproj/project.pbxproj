@@ -31,8 +31,8 @@
 		F87447451E9A2CCF009713AC /* patientLeftIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F87447431E9A2CCF009713AC /* patientLeftIcon.png */; };
 		F87447491E9A3509009713AC /* patientBackIcon New.png in Resources */ = {isa = PBXBuildFile; fileRef = F87447481E9A3509009713AC /* patientBackIcon New.png */; };
 		F88C5C111E8FF1A6000F0965 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C5C101E8FF1A6000F0965 /* Extensions.swift */; };
-		F88C5C131E90D6E2000F0965 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */; };
 		F89698EF1E95D72B00777AFC /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89698EE1E95D72B00777AFC /* Geofence.swift */; };
+		F8B52E4F1EAA29BD00D61376 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8B52E4E1EAA29BD00D61376 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,8 +90,8 @@
 		F87447431E9A2CCF009713AC /* patientLeftIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patientLeftIcon.png; sourceTree = "<group>"; };
 		F87447481E9A3509009713AC /* patientBackIcon New.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "patientBackIcon New.png"; sourceTree = "<group>"; };
 		F88C5C101E8FF1A6000F0965 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F89698EE1E95D72B00777AFC /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
+		F8B52E4E1EAA29BD00D61376 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,7 +166,7 @@
 				BF6C3C861E8739C900DA9297 /* Assets.xcassets */,
 				BF6C3C881E8739C900DA9297 /* LaunchScreen.storyboard */,
 				BF6C3C8B1E8739C900DA9297 /* Info.plist */,
-				F88C5C121E90D6E2000F0965 /* GoogleService-Info.plist */,
+				F8B52E4E1EAA29BD00D61376 /* GoogleService-Info.plist */,
 				BF6C3C831E8739C900DA9297 /* Carousel.xcdatamodeld */,
 				F816D49F1E8C665900BF3995 /* Reachability.swift */,
 				F816D4A11E8C6DB900BF3995 /* FavouritesTableViewController.swift */,
@@ -377,10 +377,10 @@
 				F87447441E9A2CCF009713AC /* patientBackIcon.png in Resources */,
 				F87447491E9A3509009713AC /* patientBackIcon New.png in Resources */,
 				BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */,
-				F88C5C131E90D6E2000F0965 /* GoogleService-Info.plist in Resources */,
 				F87447451E9A2CCF009713AC /* patientLeftIcon.png in Resources */,
 				BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */,
 				BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */,
+				F8B52E4F1EAA29BD00D61376 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
