@@ -11,29 +11,25 @@ import CoreLocation
 import Firebase
 import UserNotifications
 import CoreData
-import UserNotificationsUI
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+    
     var window: UIWindow?
     let locationManager = CLLocationManager()
     var ref: FIRDatabaseReference?
     var currentGeofence: Geofence? = nil
-    var badgeCount: Int = 0
-
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
         
-//        let tabController = self.window?.rootViewController as! UITabBarController
-//        let photoController = (tabController.viewControllers?[0])! as UIViewController
-//        let favNavController = tabController.viewControllers![1] as! UINavigationController
-//        //let favController = favNavController.topViewController as
+        //        let tabController = self.window?.rootViewController as! UITabBarController
+        //        let photoController = (tabController.viewControllers?[0])! as UIViewController
+        //        let favNavController = tabController.viewControllers![1] as! UINavigationController
+        //        //let favController = favNavController.topViewController as
         
-        badgeCount = 0
-        
-        UNUserNotificationCenter.current().delegate = self
         
         // Enable local notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
@@ -60,10 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         ref = FIRDatabase.database().reference()
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
+        locationManager.allowsBackgroundLocationUpdates = true
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
         
@@ -71,46 +68,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        print("enter background")
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
-
+    
     // MARK: - Core Data stack
-
+    
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
-        */
+         */
         let container = NSPersistentContainer(name: "Carousel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -124,9 +123,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         })
         return container
     }()
-
+    
     // MARK: - Core Data Saving support
-
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -158,9 +157,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
             if UIApplication.shared.applicationState == .active {
                 // App is active, show an alert
-                
-                UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
-                
                 let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(alertAction)
@@ -168,17 +164,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 //self.present(alertController, animated: true, completion: nil)
             } else {
                 // App is inactive, show a notification
-                if #available(iOS 10.0, *)
-                {
-                    generateNotificationWithNoActions()
-                }
-                else
-                {
-                    let notification = UILocalNotification()
-                    notification.alertTitle = title
-                    notification.alertBody = message
-                    UIApplication.shared.presentLocalNotificationNow(notification)
-                }
+                let notification = UILocalNotification()
+                notification.alertTitle = title
+                notification.alertBody = message
+                UIApplication.shared.presentLocalNotificationNow(notification)
+                
+                
+                
+                
+                
             }
             
         }
@@ -191,30 +185,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             // Notify the user when they have entered a region
             let title = "Beware"
             let message = "You are leaving your safe zone: \(region.identifier). Your caregiver will be notified."
-           
+            
             self.ref?.child("geofencing/testpatient/violated").setValue("true")
-
+            
             if UIApplication.shared.applicationState == .active {
                 // App is active, show an alert
                 let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                //let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                //alertController.addAction(alertAction)
+                let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(alertAction)
                 UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
                 //self.present(alertController, animated: true, completion: nil)
             } else {
                 // App is inactive, show a notification
-                if #available(iOS 10.0, *)
-                {
-                    generateLocalNotification()
-                }
-                else
-                {
-                    let notification = UILocalNotification()
-                    notification.alertTitle = title
-                    notification.alertBody = message
-                    UIApplication.shared.presentLocalNotificationNow(notification)
-                }
-
+                let notification = UILocalNotification()
+                notification.alertTitle = title
+                notification.alertBody = message
+                UIApplication.shared.presentLocalNotificationNow(notification)
             }
             
         }
@@ -227,6 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         self.ref?.child("users/testpatient/patLng").setValue(String(locValue.longitude))
         
     }
+    
     
     func startMonitoringGeofenceRegion()
     {
@@ -260,7 +247,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                         let lng = Double(locationLng)
                                         let loc = CLLocationCoordinate2D(latitude: lat!, longitude: lng!)
                                         print("lat: \(lat)   lng: \(lng)")
-        
+                                        
                                         let region = (name: location, coordinate:loc)
                                         let notificationRadius = range
                                         let geofence = CLCircularRegion(center: region.coordinate, radius: CLLocationDistance(notificationRadius), identifier: location)
@@ -275,7 +262,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
         })
     }
-
+    
     func removePreviousGeofence(previousGeofence: Geofence)
     {
         
@@ -288,116 +275,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let region = (name: previousGeofence.locationName, coordinate:loc)
             
             // set geofencing only if the user has chosen to keep notifications on
-
+            
             let geofence = CLCircularRegion(center: region.coordinate, radius:  CLLocationDistance(notificationRadius!), identifier: previousGeofence.locationName!)
             locationManager.stopMonitoring(for: geofence)
         }
     }
     
-    func generateLocalNotification() {
-        
-        badgeCount += 1
-        
-        // App is inactive, show a notification
-        let content = UNMutableNotificationContent()
-        content.title = "Beware"
-        content.body = "You are leaving your safe zone. Your caregiver will be informed."
-        content.sound = UNNotificationSound.default()
-        content.launchImageName = "home"
-        content.badge = badgeCount as NSNumber?
-        
-        guard let path = Bundle.main.path(forResource: "patientLeftIcon", ofType: "png") else { return }
-        let url = URL(fileURLWithPath: path)
-        
-        do {
-            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
-            content.attachments = [attachment]
-        }
-        catch
-        {
-            print ("An error occurred while trying to attach an image to the notification")
-        }
-        // Deliver the notification in five seconds.
-        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
-        let request = UNNotificationRequest.init(identifier: "geofenceNotification", content: content, trigger: trigger)
-        
-        
-        // Schedule the notification.
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-        
-        center.add(request, withCompletionHandler: {(error) in
-            if let error = error {
-                print("Uh oh! We had an error: \(error)")
-            }
-        })
-        
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert,.sound])
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        center.removeAllPendingNotificationRequests()
-        center.removeAllDeliveredNotifications()
-        
-        switch response.actionIdentifier {
-        case "justInform":
-            print ("cancelled")
-        case "showPatient":
-            print ("must show patient here")
-            badgeCount = 0
-            //            case "callPatient":
-        //                print ("must call patient here")
-        default:
-            print ("default action")
-        }
-        completionHandler()
-    }
-    
-    func generateNotificationWithNoActions()
-    {
-        
-        badgeCount += 1
-        // App is inactive, show a notification
-        let content = UNMutableNotificationContent()
-        content.title = "Patient has returned to safe zone"
-        content.body = "Your patient is back inside the safe zone"
-        content.sound = UNNotificationSound.default()
-        content.badge = badgeCount as NSNumber
-        content.launchImageName = "home"
-        
-        guard let path = Bundle.main.path(forResource: "patientBackIcon New", ofType: "png") else { return }
-        let url = URL(fileURLWithPath: path)
-        
-        do {
-            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
-            content.attachments = [attachment]
-        }
-        catch
-        {
-            print ("An error occurred while trying to attach an image to the notification")
-        }
-        
-        // Deliver the notification in five seconds.
-        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
-        let request = UNNotificationRequest.init(identifier: "OtherNotification", content: content, trigger: trigger)
-        
-        
-        // Schedule the notification.
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-        
-        center.add(request, withCompletionHandler: {(error) in
-            if let error = error {
-                print("Uh oh! We had an error: \(error)")
-            }
-        })
-        
-    }
-
-
 }
 
