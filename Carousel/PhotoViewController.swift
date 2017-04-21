@@ -24,8 +24,7 @@ class PhotoViewController: UIViewController
     
     @IBOutlet weak var locationLabel: UILabel!
     
-    
-
+    var newEvent: PanicEvent? = nil
     
     var photos = [Photo]()
     let cellScaling: CGFloat = 0.6
@@ -143,11 +142,77 @@ class PhotoViewController: UIViewController
     
     @IBAction func didClickPanicButton(_ sender: Any) {
         
+        print ("User clicked panic button")
+        var ref2: FIRDatabaseReference!
+        ref2 = FIRDatabase.database().reference()
+        ref2.child("panicked/testpatient/isPanicked").setValue("true")
         
+        var values: [String: Any]? = nil
+        var eventName: String?
+        var receivedTime: String?
+        var receivedDate: String?
+        var receivedLat: String?
+        var receivedLng: String?
+        var handled: String = "false"
+        
+        let dateTime = NSDate()
+        print (dateTime)
+        
+        let dateFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        timeFormatter.dateFormat = "HH:mm:ss"
+        
+        let dateResult = dateFormatter.string(from: dateTime as Date)
+        let timeResult = timeFormatter.string(from: dateTime as Date)
+        
+        receivedDate = dateResult
+        receivedTime = timeResult
+ 
+//        DispatchQueue.global(qos: .background).async {
+//            // Background Thread
+            self.ref.child("users").observe(.value, with: { (snapshot) in
+                
+                if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
+                {
+                    let value = current.value as? NSDictionary
+                    if let patLat = value?["patLat"] as? String
+                    {
+                        if let patLng = value?["patLng"] as? String {
+                            receivedLat = patLat
+                            receivedLng = patLng
+                            
+                            print ("received \(receivedLat) and \(receivedLng)")
+                            eventName = "event\(receivedDate!)_\(receivedTime!)"
+                            self.newEvent = PanicEvent(receivedDate: receivedDate!, receivedTime: receivedTime!, receivedLat: receivedLat!, receivedLng: receivedLng!)
+                            values = ["eventName": eventName!, "receivedDate": receivedDate!, "receivedTime": receivedTime!, "receivedLat": receivedLat!, "receivedLng": receivedLng!, "resolved": "false", "resolvedDate": "nil", "resolvedTime": "nil"]
+                            ref2.child("panicEvents/testpatient").child(eventName!).setValue(values)
+//                            self.performSegue(withIdentifier: "showPanicMapSegue", sender: self)
+                        }
+                    }
+                }
+            })
+
+//            DispatchQueue.main.async {
+//
+//            }
+//        }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if (segue.identifier == "showPanicMapSegue")
+//        {
+//            let destinationVC: PanicMapViewController = segue.destination as! PanicMapViewController
+//            destinationVC.currentPanicEvent = newEvent
+//        }
+        if (segue.identifier == "helpOnTheWaySegue")
+        {
+            let destinationVC: HelpMessageViewController = segue.destination as! HelpMessageViewController
+        }
+    }
     
 }
+
 
 extension PhotoViewController : UICollectionViewDataSource
 {
