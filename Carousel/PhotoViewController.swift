@@ -87,7 +87,7 @@ class PhotoViewController: UIViewController
     
     func retrieveDataFromFirebase()
     {
-        self.photos.removeAll()
+//        self.photos.removeAll()
         // Retrieve the list of favourites and listen for changes
         
         let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
@@ -98,6 +98,7 @@ class PhotoViewController: UIViewController
         
         ref.child("Photos/testpatient").observe(.value, with: {(snapshot) in
             
+            self.photos.removeAll()
             // code to execute when child is changed
             // Take the value from snapshot and add it to the favourites list
             
