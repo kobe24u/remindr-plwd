@@ -83,6 +83,52 @@ class PhotoViewController: UIViewController
 
     override func viewWillAppear(_ animated: Bool) {
             retrieveDataFromFirebase()
+            getCloudNotifications()
+    }
+    
+    func getCloudNotifications()
+    {
+        ref.child("reminders/testpatient").observe(.value, with: {(snapshot) in
+            
+            // code to execute when child is changed
+            // Take the value from snapshot and add it to the favourites list
+            
+            // Get user value
+            
+            UIApplication.shared.cancelAllLocalNotifications()
+            
+            
+            for current in snapshot.children.allObjects as! [FIRDataSnapshot]
+            {
+                let value = current.value as? NSDictionary
+                let message = value?["message"] as? String ?? ""
+                let time = value?["time"]
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let date = dateFormatter.date(from: time as! String)
+                
+                let currentDate = NSDate()
+                 if date! < currentDate as Date
+                 {
+                    print(date)
+                }
+                 else{
+                    print(date)
+                    let notification = UILocalNotification()
+                    notification.alertTitle = "Reminder"
+                    notification.alertBody = "\(message)"
+                    notification.fireDate = date
+                    notification.soundName = UILocalNotificationDefaultSoundName
+                    notification.alertLaunchImage = "pill.png"
+                    UIApplication.shared.scheduleLocalNotification(notification)
+                }
+               
+                
+            }
+            
+            
+        })
+        
     }
     
     func retrieveDataFromFirebase()

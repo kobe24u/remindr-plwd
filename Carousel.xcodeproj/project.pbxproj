@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		9AB99A87405B79D74F585971 /* Pods_Carousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */; };
 		BF276EBE1EAA26A0006E5EAC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF276EBD1EAA26A0006E5EAC /* GoogleService-Info.plist */; };
+		BF276EEE1EAB4B93006E5EAC /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF276EED1EAB4B93006E5EAC /* NotificationService.swift */; };
+		BF276EF21EAB4B93006E5EAC /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF276EEB1EAB4B92006E5EAC /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BF276EFD1EAB516C006E5EAC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF276EFC1EAB516C006E5EAC /* UserNotifications.framework */; };
+		BF276EFF1EAB516C006E5EAC /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF276EFE1EAB516C006E5EAC /* UserNotificationsUI.framework */; };
+		BF276F021EAB516C006E5EAC /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF276F011EAB516C006E5EAC /* NotificationViewController.swift */; };
+		BF276F051EAB516C006E5EAC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF276F031EAB516C006E5EAC /* MainInterface.storyboard */; };
+		BF276F091EAB516C006E5EAC /* NotificationContent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF276EFB1EAB516C006E5EAC /* NotificationContent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF6C3C7D1E8739C900DA9297 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */; };
 		BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6C3C801E8739C900DA9297 /* Main.storyboard */; };
 		BF6C3C851E8739C900DA9297 /* Carousel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C831E8739C900DA9297 /* Carousel.xcdatamodeld */; };
@@ -36,6 +43,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BF276EF01EAB4B93006E5EAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF6C3C711E8739C900DA9297 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF276EEA1EAB4B92006E5EAC;
+			remoteInfo = NotificationService;
+		};
+		BF276F071EAB516C006E5EAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF6C3C711E8739C900DA9297 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF276EFA1EAB516C006E5EAC;
+			remoteInfo = NotificationContent;
+		};
 		BF6C3C911E8739C900DA9297 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BF6C3C711E8739C900DA9297 /* Project object */;
@@ -52,10 +73,34 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BF276EF61EAB4B93006E5EAC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BF276EF21EAB4B93006E5EAC /* NotificationService.appex in Embed App Extensions */,
+				BF276F091EAB516C006E5EAC /* NotificationContent.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0700B11A208A0EB35F9D44EE /* Pods-Carousel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carousel.release.xcconfig"; path = "Pods/Target Support Files/Pods-Carousel/Pods-Carousel.release.xcconfig"; sourceTree = "<group>"; };
 		B7A8AE85ABF763B2B5E32E31 /* Pods-Carousel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carousel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Carousel/Pods-Carousel.debug.xcconfig"; sourceTree = "<group>"; };
 		BF276EBD1EAA26A0006E5EAC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BF276EEB1EAB4B92006E5EAC /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF276EED1EAB4B93006E5EAC /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		BF276EEF1EAB4B93006E5EAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF276EFB1EAB516C006E5EAC /* NotificationContent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF276EFC1EAB516C006E5EAC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		BF276EFE1EAB516C006E5EAC /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		BF276F011EAB516C006E5EAC /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		BF276F041EAB516C006E5EAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		BF276F061EAB516C006E5EAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF6C3C791E8739C900DA9297 /* Carousel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carousel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF6C3C811E8739C900DA9297 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -95,6 +140,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BF276EE81EAB4B92006E5EAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF276EF81EAB516C006E5EAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF276EFF1EAB516C006E5EAC /* UserNotificationsUI.framework in Frameworks */,
+				BF276EFD1EAB516C006E5EAC /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF6C3C761E8739C900DA9297 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,12 +190,33 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BF276EEC1EAB4B93006E5EAC /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				BF276EED1EAB4B93006E5EAC /* NotificationService.swift */,
+				BF276EEF1EAB4B93006E5EAC /* Info.plist */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
+		BF276F001EAB516C006E5EAC /* NotificationContent */ = {
+			isa = PBXGroup;
+			children = (
+				BF276F011EAB516C006E5EAC /* NotificationViewController.swift */,
+				BF276F031EAB516C006E5EAC /* MainInterface.storyboard */,
+				BF276F061EAB516C006E5EAC /* Info.plist */,
+			);
+			path = NotificationContent;
+			sourceTree = "<group>";
+		};
 		BF6C3C701E8739C900DA9297 = {
 			isa = PBXGroup;
 			children = (
 				BF6C3C7B1E8739C900DA9297 /* Carousel */,
 				BF6C3C931E8739C900DA9297 /* CarouselTests */,
 				BF6C3C9E1E8739C900DA9297 /* CarouselUITests */,
+				BF276EEC1EAB4B93006E5EAC /* NotificationService */,
+				BF276F001EAB516C006E5EAC /* NotificationContent */,
 				BF6C3C7A1E8739C900DA9297 /* Products */,
 				B2757D6553B51B5EE08F221A /* Pods */,
 				CE7D777959859562713EA82C /* Frameworks */,
@@ -147,6 +229,8 @@
 				BF6C3C791E8739C900DA9297 /* Carousel.app */,
 				BF6C3C901E8739C900DA9297 /* CarouselTests.xctest */,
 				BF6C3C9B1E8739C900DA9297 /* CarouselUITests.xctest */,
+				BF276EEB1EAB4B92006E5EAC /* NotificationService.appex */,
+				BF276EFB1EAB516C006E5EAC /* NotificationContent.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,6 +314,8 @@
 			isa = PBXGroup;
 			children = (
 				DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */,
+				BF276EFC1EAB516C006E5EAC /* UserNotifications.framework */,
+				BF276EFE1EAB516C006E5EAC /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -264,6 +350,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BF276EEA1EAB4B92006E5EAC /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF276EF51EAB4B93006E5EAC /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				BF276EE71EAB4B92006E5EAC /* Sources */,
+				BF276EE81EAB4B92006E5EAC /* Frameworks */,
+				BF276EE91EAB4B92006E5EAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = BF276EEB1EAB4B92006E5EAC /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		BF276EFA1EAB516C006E5EAC /* NotificationContent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF276F0A1EAB516C006E5EAC /* Build configuration list for PBXNativeTarget "NotificationContent" */;
+			buildPhases = (
+				BF276EF71EAB516C006E5EAC /* Sources */,
+				BF276EF81EAB516C006E5EAC /* Frameworks */,
+				BF276EF91EAB516C006E5EAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationContent;
+			productName = NotificationContent;
+			productReference = BF276EFB1EAB516C006E5EAC /* NotificationContent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		BF6C3C781E8739C900DA9297 /* Carousel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF6C3CA41E8739C900DA9297 /* Build configuration list for PBXNativeTarget "Carousel" */;
@@ -274,10 +394,13 @@
 				BF6C3C771E8739C900DA9297 /* Resources */,
 				87DD71EB44990CDF927AAD0D /* [CP] Embed Pods Frameworks */,
 				2921836832FFD9D41D47418C /* [CP] Copy Pods Resources */,
+				BF276EF61EAB4B93006E5EAC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BF276EF11EAB4B93006E5EAC /* PBXTargetDependency */,
+				BF276F081EAB516C006E5EAC /* PBXTargetDependency */,
 			);
 			name = Carousel;
 			productName = Carousel;
@@ -330,6 +453,16 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = 200OK;
 				TargetAttributes = {
+					BF276EEA1EAB4B92006E5EAC = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = NHS5CFX24Q;
+						ProvisioningStyle = Automatic;
+					};
+					BF276EFA1EAB516C006E5EAC = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = NHS5CFX24Q;
+						ProvisioningStyle = Automatic;
+					};
 					BF6C3C781E8739C900DA9297 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = NHS5CFX24Q;
@@ -365,11 +498,28 @@
 				BF6C3C781E8739C900DA9297 /* Carousel */,
 				BF6C3C8F1E8739C900DA9297 /* CarouselTests */,
 				BF6C3C9A1E8739C900DA9297 /* CarouselUITests */,
+				BF276EEA1EAB4B92006E5EAC /* NotificationService */,
+				BF276EFA1EAB516C006E5EAC /* NotificationContent */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BF276EE91EAB4B92006E5EAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF276EF91EAB516C006E5EAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF276F051EAB516C006E5EAC /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF6C3C771E8739C900DA9297 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -449,6 +599,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BF276EE71EAB4B92006E5EAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF276EEE1EAB4B93006E5EAC /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF276EF71EAB516C006E5EAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF276F021EAB516C006E5EAC /* NotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF6C3C751E8739C900DA9297 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -491,6 +657,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BF276EF11EAB4B93006E5EAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF276EEA1EAB4B92006E5EAC /* NotificationService */;
+			targetProxy = BF276EF01EAB4B93006E5EAC /* PBXContainerItemProxy */;
+		};
+		BF276F081EAB516C006E5EAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF276EFA1EAB516C006E5EAC /* NotificationContent */;
+			targetProxy = BF276F071EAB516C006E5EAC /* PBXContainerItemProxy */;
+		};
 		BF6C3C921E8739C900DA9297 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BF6C3C781E8739C900DA9297 /* Carousel */;
@@ -504,6 +680,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		BF276F031EAB516C006E5EAC /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF276F041EAB516C006E5EAC /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		BF6C3C801E8739C900DA9297 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -523,6 +707,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BF276EF31EAB4B93006E5EAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		BF276EF41EAB4B93006E5EAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		BF276F0B1EAB516C006E5EAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				INFOPLIST_FILE = NotificationContent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel.NotificationContent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		BF276F0C1EAB516C006E5EAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				INFOPLIST_FILE = NotificationContent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel.NotificationContent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		BF6C3CA21E8739C900DA9297 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -620,6 +856,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B7A8AE85ABF763B2B5E32E31 /* Pods-Carousel.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
 				INFOPLIST_FILE = Carousel/Info.plist;
@@ -635,6 +872,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0700B11A208A0EB35F9D44EE /* Pods-Carousel.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
 				INFOPLIST_FILE = Carousel/Info.plist;
@@ -707,6 +945,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BF276EF51EAB4B93006E5EAC /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF276EF31EAB4B93006E5EAC /* Debug */,
+				BF276EF41EAB4B93006E5EAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BF276F0A1EAB516C006E5EAC /* Build configuration list for PBXNativeTarget "NotificationContent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF276F0B1EAB516C006E5EAC /* Debug */,
+				BF276F0C1EAB516C006E5EAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		BF6C3C741E8739C900DA9297 /* Build configuration list for PBXProject "Carousel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
