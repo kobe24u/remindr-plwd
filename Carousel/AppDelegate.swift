@@ -85,12 +85,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         
         let content = UNMutableNotificationContent()
-        content.title = "Hey, dear user"
-        content.subtitle = "Your family really care about you"
-        content.body = "Plz don't forget using me"
+        content.title = "Hi!"
+        content.subtitle = "You have memories to view"
+        content.body = "Click here if you would like to see them or if you need any assistance"
         content.badge = 1
         content.sound = UNNotificationSound.default()
         
+        guard let path = Bundle.main.path(forResource: "husbandbill", ofType: "png") else {return}
+        let url = URL(fileURLWithPath: path)
+        do {
+            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+            content.attachments = [attachment]
+        }
+        catch {
+            print ("error occurred")
+        }
         
         
         
@@ -198,16 +207,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 //self.present(alertController, animated: true, completion: nil)
             } else {
                 // App is inactive, show a notification
+                
+                
                 let notification = UILocalNotification()
                 notification.alertTitle = title
                 notification.alertBody = message
                 notification.soundName = UILocalNotificationDefaultSoundName
                 UIApplication.shared.presentLocalNotificationNow(notification)
-                
-                
-                
-                
-                
             }
             
         }
