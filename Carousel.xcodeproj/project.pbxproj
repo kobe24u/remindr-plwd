@@ -712,6 +712,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
 				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -725,6 +726,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
 				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IE.Carousel.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -952,6 +954,7 @@
 				BF276EF41EAB4B93006E5EAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF276F0A1EAB516C006E5EAC /* Build configuration list for PBXNativeTarget "NotificationContent" */ = {
 			isa = XCConfigurationList;
@@ -960,6 +963,7 @@
 				BF276F0C1EAB516C006E5EAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF6C3C741E8739C900DA9297 /* Build configuration list for PBXProject "Carousel" */ = {
 			isa = XCConfigurationList;

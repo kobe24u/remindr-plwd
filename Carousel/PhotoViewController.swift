@@ -11,8 +11,9 @@ import CoreData
 import AVFoundation
 import Firebase
 import FirebaseDatabase
+import UserNotifications
 
-class PhotoViewController: UIViewController
+class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNotificationCenterDelegate
  {
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -71,7 +72,30 @@ class PhotoViewController: UIViewController
         collectionView!.dataSource = self
         collectionView!.delegate = self
         
+        
+        
+        
 
+    }
+    
+    func disableScrollingFunc()
+    {
+        self.collectionView.isScrollEnabled = false
+    }
+    
+    func enableScrollingFunc()
+    {
+        self.collectionView.isScrollEnabled = true
+    }
+    
+    func disableCollectionViewScrolling()
+    {
+        self.collectionView.isScrollEnabled = false
+    }
+    
+    func enableCollectionViewScrolling()
+    {
+        self.collectionView.isScrollEnabled = true
     }
     
     func updateWeatherUI() {
@@ -114,8 +138,9 @@ class PhotoViewController: UIViewController
                 }
                  else{
                     print(date)
+                    
                     let notification = UILocalNotification()
-                    notification.alertTitle = "Reminder"
+                    notification.alertTitle = "New Reminder Attention"
                     notification.alertBody = "\(message)"
                     notification.fireDate = date
                     notification.soundName = UILocalNotificationDefaultSoundName
@@ -218,7 +243,7 @@ class PhotoViewController: UIViewController
  
 //        DispatchQueue.global(qos: .background).async {
 //            // Background Thread
-            self.ref.child("users").observe(.value, with: { (snapshot) in
+            self.ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
                 {
@@ -258,6 +283,10 @@ class PhotoViewController: UIViewController
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print ("did select an image")
+    }
+    
 }
 
 
@@ -276,6 +305,7 @@ extension PhotoViewController : UICollectionViewDataSource
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCollectionViewCell
+            cell.delegate = self
 //            let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
 //            
 //            activityView.center = cell.contentView.center

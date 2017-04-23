@@ -9,6 +9,12 @@
 import UIKit
 import AVFoundation
 
+protocol CollectionViewScrolling
+{
+    func disableScrollingFunc()
+    func enableScrollingFunc()
+}
+
 class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var featuredImageView: UIImageView!
@@ -24,6 +30,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
+    var delegate: CollectionViewScrolling?
     var audioURL: String?{
         didSet {
             print(audioURL!)
@@ -186,6 +193,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully
         flag: Bool) {
         print("Finished")
+        self.delegate?.enableScrollingFunc()
         let playImage = resizeImage(image: UIImage(named: "play")!, newWidth: CGFloat(30))
         playButton.setImage(playImage, for: .normal)
 //        recordButton.isEnabled = true
@@ -206,7 +214,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
     func buttonPressed() {
         print("hello")
         print(audioURL)
-        
+        self.delegate?.disableScrollingFunc()
 //        if audioRecorder!.isRecording == false {
             let stopImage = resizeImage(image: UIImage(named: "stop")!, newWidth: CGFloat(30))
             stopButton = UIButton(frame: CGRect(x: 40, y: 270, width: 150, height: 64))
@@ -279,6 +287,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
     
     func stopTapped(){
         print("Stopped")
+        self.delegate?.enableScrollingFunc()
         audioPlayer!.stop()
         stopButton.isHidden = true
         playButton.isHidden = false
