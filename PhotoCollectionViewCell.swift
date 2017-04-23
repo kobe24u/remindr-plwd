@@ -198,6 +198,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully
         flag: Bool) {
         print("Finished")
+        self.loadingView.removeFromSuperview()
         self.delegate?.enableScrollingFunc()
         let playImage = resizeImage(image: UIImage(named: "play")!, newWidth: CGFloat(30))
         playButton.setImage(playImage, for: .normal)
