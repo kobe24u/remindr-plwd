@@ -82,6 +82,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
             
         }
     }
+    var loadingView: UIView = UIView()
     
     private func updateUI()
     {
@@ -98,6 +99,10 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
 //                affinityLabel.image = #imageLiteral(resourceName: "terrified")
 //            }
             backgroundColorView.addSubview(playButton)
+            
+            
+                    loadingView.frame = CGRect(x: 115, y: 260, width: 80, height: 80)
+            
         } else {
             featuredImageView.image = nil
             photoTitleLabel.text = nil
@@ -214,12 +219,21 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
     func buttonPressed() {
         print("hello")
         print(audioURL)
+        
+        loadingView.addSubview(activityIndicator)
+        
+                self.backgroundColorView.addSubview(loadingView)
+        
+                activityIndicator.startAnimating()
+        
+        
         self.delegate?.disableScrollingFunc()
 //        if audioRecorder!.isRecording == false {
             let stopImage = resizeImage(image: UIImage(named: "stop")!, newWidth: CGFloat(30))
             stopButton = UIButton(frame: CGRect(x: 40, y: 270, width: 150, height: 64))
             stopButton.setImage(stopImage, for: .normal)
-            playButton.isHidden = true
+            playButton.isEnabled = true
+//            playButton.isHidden = true
             stopButton.isHidden = false
 //            recordButton.isEnabled = false
             stopButton.addTarget(self, action: #selector(stopTapped), for: .touchUpInside)
@@ -246,6 +260,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
         })
         
         downloadTask.resume()
+        
         
 //        }
     }
@@ -287,10 +302,16 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
     
     func stopTapped(){
         print("Stopped")
+        self.loadingView.removeFromSuperview()
         self.delegate?.enableScrollingFunc()
-        audioPlayer!.stop()
-        stopButton.isHidden = true
-        playButton.isHidden = false
+        if (audioPlayer != nil)
+        {
+            audioPlayer!.stop()
+            stopButton.isEnabled = false
+            stopButton.isHidden = true
+            playButton.isEnabled = true
+            playButton.isHidden = false
+        }
 //        recordButton.isEnabled = true
     }
     
