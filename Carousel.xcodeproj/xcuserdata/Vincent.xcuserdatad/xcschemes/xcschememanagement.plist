@@ -9,9 +9,29 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>NotificationContent.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>NotificationService.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>BF276EEA1EAB4B92006E5EAC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BF276EFA1EAB516C006E5EAC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>BF6C3C781E8739C900DA9297</key>
 		<dict>
 			<key>primary</key>

@@ -13,7 +13,7 @@ import UserNotifications
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     let locationManager = CLLocationManager()
@@ -21,7 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var currentGeofence: Geofence? = nil
     
     
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         
         // Override point for customization after application launch.
         
@@ -60,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
         
@@ -68,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         return true
     }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -78,11 +83,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Hey, dear user"
+        content.subtitle = "Your family really care about you"
+        content.body = "Plz don't forget using me"
+        content.badge = 1
+        content.sound = UNNotificationSound.default()
+        
+        
+        
+        
+        let date = Date(timeIntervalSinceNow: 60)
+//        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+//        
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+//                                                    repeats: true)
+        
+        let triggerDaily = Calendar.current.dateComponents([.second,], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDaily, repeats: true)
+        
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
+        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         print("enter background")
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        application.applicationIconBadgeNumber = 0
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -93,6 +123,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        print("asdasd")
     }
     
     // MARK: - Core Data stack
@@ -167,6 +201,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 let notification = UILocalNotification()
                 notification.alertTitle = title
                 notification.alertBody = message
+                notification.soundName = UILocalNotificationDefaultSoundName
                 UIApplication.shared.presentLocalNotificationNow(notification)
                 
                 
@@ -200,6 +235,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 let notification = UILocalNotification()
                 notification.alertTitle = title
                 notification.alertBody = message
+                notification.soundName = UILocalNotificationDefaultSoundName
                 UIApplication.shared.presentLocalNotificationNow(notification)
             }
             
