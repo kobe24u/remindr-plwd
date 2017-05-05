@@ -21,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var currentGeofence: Geofence? = nil
     
     
-    
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
@@ -88,8 +86,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         content.title = "Hi!"
         content.subtitle = "You have memories to view"
         content.body = "Click here if you would like to see them or if you need any assistance"
-        content.badge = 1
+        //        content.badge = 1
         content.sound = UNNotificationSound.default()
+        //        content.sound = UNNotificationSound.init(named: "test2.m4a")
         
         guard let path = Bundle.main.path(forResource: "husbandbill", ofType: "png") else {return}
         let url = URL(fileURLWithPath: path)
@@ -103,16 +102,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         
         
-        let date = Date(timeIntervalSinceNow: 60)
-//        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
-//        
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-//                                                    repeats: true)
+        let date = Date()
+        //        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+        //
+        //        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+        //                                                    repeats: true)
         
-        let triggerDaily = Calendar.current.dateComponents([.second,], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDaily, repeats: true)
+        let triggerDaily = Calendar.current.dateComponents([.minute,.second,], from: date)
+        //        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDaily, repeats: true)
         
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
+        //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 600, repeats: true)
         let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
@@ -256,7 +256,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
     }
     
-    
     func startMonitoringGeofenceRegion()
     {
         self.ref?.child("geofencing").observe(.value, with: { (snapshot) in
@@ -294,6 +293,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                         let notificationRadius = range
                                         let geofence = CLCircularRegion(center: region.coordinate, radius: CLLocationDistance(notificationRadius), identifier: location)
                                         self.locationManager.startMonitoring(for: geofence)
+                                        self.locationManager.requestState(for: geofence)
+                                        //self.locationManager.perform(#selector(), with: geofence, afterDelay: 1)
                                         print ("Started monitoring \(region.name)")
                                     }
                                 }
@@ -304,6 +305,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
         })
     }
+    
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        switch(state)
+        {
+        case CLRegionState.outside:
+            self.ref?.child("geofencing/testpatient/violated").setValue("true")
+            print ("patient is outside")
+        case CLRegionState.inside:
+            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            print ("patient is inside")
+        case CLRegionState.unknown:
+            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            print ("patient location is unknown")
+        default:
+            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            
+        }
+    }
+    
+    
+    
     
     func removePreviousGeofence(previousGeofence: Geofence)
     {

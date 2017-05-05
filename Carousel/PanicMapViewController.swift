@@ -9,7 +9,7 @@
 import UIKit
 
 class PanicMapViewController: UIViewController {
-
+    
     @IBOutlet weak var webView: UIWebView!
     
     // creating a view to display a progress spinner while data is being loaded from the server
@@ -21,13 +21,13 @@ class PanicMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         //webView.loadRequest(URLRequest(url: URL(string: "https://www.google.com.au/maps")!))
         getNearestHospitalFromGoogleAPI()
         setProgressView()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -35,7 +35,7 @@ class PanicMapViewController: UIViewController {
     
     @IBAction func phoneCallCaregiver(_ sender: Any) {
     }
-
+    
     @IBAction func videoCallCaregiver(_ sender: Any) {
     }
     
@@ -48,23 +48,23 @@ class PanicMapViewController: UIViewController {
         
         var requestURL: String?
         requestURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\((currentPanicEvent?.receivedLat!)!),\((currentPanicEvent?.receivedLng!)!)&rankby=distance&type=hospital&key=AIzaSyCuzBXG3yuafhEAXg_aybtOzfU5LF0o5Lg"
-       
+        
         print ("request url is \(requestURL)")
-
+        
         var url: NSURL = NSURL(string: requestURL!)!
         let task = URLSession.shared.dataTask(with: url as URL){
-        (data, response, error) in
-        if (error != nil)
-        {
-            print("Error \(error)")
-            self.displayAlertMessage(title: "Connection Failed", message: "Failed to retrieve data from the server")
-        }
-        else
-        {
-            self.parseMapsJSON(mapsJSON: data! as NSData)
-            
-        }
-        //self.syncCompleted = true
+            (data, response, error) in
+            if (error != nil)
+            {
+                print("Error \(error)")
+                self.displayAlertMessage(title: "Connection Failed", message: "Failed to retrieve data from the server")
+            }
+            else
+            {
+                self.parseMapsJSON(mapsJSON: data! as NSData)
+                
+            }
+            //self.syncCompleted = true
         }
         task.resume()
     }
@@ -83,17 +83,17 @@ class PanicMapViewController: UIViewController {
                 {
                     if let firstResult = results[0] as? NSDictionary
                     {
-//                        if let geometry = firstResult["geometry"] as? NSDictionary
-//                        {
-//                            if let location = geometry["location"] as? NSDictionary
-//                            {
-//                                let lat = location.object(forKey: "lat") as! Double
-//                                let lng = location.object(forKey: "lng") as! Double
-//                                googleMapsURL = "https://www.google.com/maps/dir/current+location/\(lat),\(lng)"
-//                                stopProgressView()
-//                                webView.loadRequest(URLRequest(url: URL(string: googleMapsURL!)!))
-//                            }
-//                        }
+                        //                        if let geometry = firstResult["geometry"] as? NSDictionary
+                        //                        {
+                        //                            if let location = geometry["location"] as? NSDictionary
+                        //                            {
+                        //                                let lat = location.object(forKey: "lat") as! Double
+                        //                                let lng = location.object(forKey: "lng") as! Double
+                        //                                googleMapsURL = "https://www.google.com/maps/dir/current+location/\(lat),\(lng)"
+                        //                                stopProgressView()
+                        //                                webView.loadRequest(URLRequest(url: URL(string: googleMapsURL!)!))
+                        //                            }
+                        //                        }
                         if let name = firstResult.object(forKey: "name") as? String
                         {
                             googleMapsURL = "https://www.google.com/maps/dir/\((currentPanicEvent?.receivedLat!)!),\((currentPanicEvent?.receivedLng!)!)/\(name)"
@@ -112,7 +112,7 @@ class PanicMapViewController: UIViewController {
             print("JSON Serialization error")
         }
     }
-
+    
     
     /*
      A function to allow custom alerts to be created by passing a title and a message
@@ -175,19 +175,19 @@ class PanicMapViewController: UIViewController {
             }
         }
     }
-
+    
 }
 
 
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using segue.destinationViewController.
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 

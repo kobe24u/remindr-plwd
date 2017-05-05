@@ -14,8 +14,8 @@ import FirebaseDatabase
 import UserNotifications
 
 class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNotificationCenterDelegate
- {
-
+{
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var weatherImage: UIImageView!
@@ -33,25 +33,28 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     var chosenPhoto: UIImage?
     var weather = WeatherModel()
     
-//    var photoList: NSMutableArray
+    //    var photoList: NSMutableArray
     var ref: FIRDatabaseReference!
     var aDecoder: NSCoder
-
+    
     
     required init?(coder aDecoder: NSCoder) {
         
         self.aDecoder = aDecoder
-//        self.photoList = NSMutableArray()
+        //        self.photoList = NSMutableArray()
         super.init(coder: aDecoder)
     }
     
     override  func viewDidLoad() {
         super.viewDidLoad()
         
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         ref = FIRDatabase.database().reference()
-//        retrieveDataFromFirebase()
+        //        retrieveDataFromFirebase()
         
         weather.downloadData {
             self.updateWeatherUI()
@@ -67,7 +70,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
         collectionView!.contentInset = UIEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX)
         
-//        picker.delegate = self
+        //        picker.delegate = self
         
         collectionView!.dataSource = self
         collectionView!.delegate = self
@@ -75,7 +78,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         
         
         
-
+        
     }
     
     func disableScrollingFunc()
@@ -104,11 +107,28 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         weatherImage.image = UIImage(named: weather.weather)
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
-            retrieveDataFromFirebase()
-            getCloudNotifications()
+        retrieveDataFromFirebase()
+        getCloudNotifications()
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        switch response.actionIdentifier {
+        case UNNotificationDismissActionIdentifier:
+            print("Dismiss Action")
+        case UNNotificationDefaultActionIdentifier:
+            print("Default")
+        case "Snooze":
+            print("Snooze")
+        case "UYLDeleteAction":
+            print("Delete")
+        default:
+            print("Unknown action")
+        }
+        completionHandler()
+    }
+    
     
     func getCloudNotifications()
     {
@@ -127,27 +147,169 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                 let value = current.value as? NSDictionary
                 let message = value?["message"] as? String ?? ""
                 let time = value?["time"]
+                let audioURL = value?["audioURL"] as? String ?? ""
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let date = dateFormatter.date(from: time as! String)
                 
                 let currentDate = NSDate()
-                 if date! < currentDate as Date
-                 {
+                if date! < currentDate as Date
+                {
                     print(date)
                 }
-                 else{
+                else{
                     print(date)
                     
-                    let notification = UILocalNotification()
-                    notification.alertTitle = "New Reminder Attention"
-                    notification.alertBody = "\(message)"
-                    notification.fireDate = date
-                    notification.soundName = UILocalNotificationDefaultSoundName
-                    notification.alertLaunchImage = "pill.png"
-                    UIApplication.shared.scheduleLocalNotification(notification)
+                    var audioFileName: String?
+                    if let audioUrl = URL(string: audioURL) {
+                        
+                        // then lets create your document folder url
+                        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                        
+                        // lets create your destination file url
+                        let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
+                        
+                        audioFileName = audioUrl.lastPathComponent
+                        print(audioUrl.lastPathComponent)
+                        print(destinationUrl)
+                        
+                        // to check if it exists before downloading it
+                        if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                            print("The file already exists at path")
+                            
+                            // if the file doesn't exist
+                        } else {
+                            
+                            // you can use NSURLSession.sharedSession to download the data asynchronously
+                            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                                guard let location = location, error == nil else { return }
+                                do {
+                                    // after downloading your file you need to move it to your destination url
+                                    try FileManager.default.moveItem(at: location, to: destinationUrl)
+                                    print("File moved to documents folder")
+                                } catch let error as NSError {
+                                    print(error.localizedDescription)
+                                }
+                            }).resume()
+                        }
+                    }
+                    
+                    
+                    
+                    if UIApplication.shared.applicationState == .active {
+                        
+                        
+                        let mes = message
+                        let timer = Timer(fireAt: date!, interval: 0, target: self, selector: #selector(PhotoViewController.displayAlert(timer:)), userInfo: mes, repeats: false)
+                        RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
+                        // App is active, show an alert
+                        //                        let notification = UILocalNotification()
+                        //                        notification.alertTitle = "New Reminder Attention"
+                        //                        notification.alertBody = "\(message)"
+                        //                        notification.fireDate = date
+                        //                        notification.soundName = UILocalNotificationDefaultSoundName
+                        //                        UIApplication.shared.scheduleLocalNotification(notification)
+                        
+                        let snoozeAction = UNNotificationAction(identifier: "Snooze",
+                                                                title: "Will do it", options: [])
+                        let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
+                                                                title: "Ignore", options: [.destructive])
+                        let actionsArray = NSArray(objects: snoozeAction, deleteAction)
+                        
+                        let category = UNNotificationCategory(identifier: "UYLReminderCategory",
+                                                              actions: actionsArray as! [UNNotificationAction],
+                                                              intentIdentifiers: [], options: [])
+                        
+                        
+                        let content = UNMutableNotificationContent()
+                        content.title = "Hi!"
+                        content.subtitle = "You have a new reminder, please check"
+                        content.body = "\(message)"
+                        content.categoryIdentifier = "UYLReminderCategory"
+                        content.userInfo = ["Type": "timerDone"]
+                        //        content.badge = 1
+                        print(audioFileName)
+                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
+                        
+                        guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
+                        let url = URL(fileURLWithPath: path)
+                        do {
+                            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+                            content.attachments = [attachment]
+                        }
+                        catch {
+                            print ("error occurred")
+                        }
+                        
+                        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date!)
+                        
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                        
+                        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+                        
+                        
+                        
+                        UNUserNotificationCenter.current().setNotificationCategories([category])
+                        
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        
+                        
+                        
+                        
+                        
+                        //self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        
+                        let snoozeAction = UNNotificationAction(identifier: "Snooze",
+                                                                title: "Will do it", options: [])
+                        let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
+                                                                title: "Snooze", options: [.destructive])
+                        let actionsArray = NSArray(objects: snoozeAction, deleteAction)
+                        
+                        let category = UNNotificationCategory(identifier: "UYLReminderCategory",
+                                                              actions: actionsArray as! [UNNotificationAction],
+                                                              intentIdentifiers: [], options: [])
+                        
+                        let content = UNMutableNotificationContent()
+                        content.title = "Hi!"
+                        content.subtitle = "You have a new reminder, please check"
+                        content.body = "\(message)"
+                        //        content.badge = 1
+                        content.categoryIdentifier = "UYLReminderCategory"
+                        content.userInfo = ["Type": "timerDone"]
+                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
+                        
+                        guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
+                        let url = URL(fileURLWithPath: path)
+                        do {
+                            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+                            content.attachments = [attachment]
+                        }
+                        catch {
+                            print ("error occurred")
+                        }
+                        
+                        
+                        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date!)
+                        
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                        
+                        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+                        
+                        
+                        
+                        UNUserNotificationCenter.current().setNotificationCategories([category])
+                        
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        
+                        
+                        
+                        
+                    }
                 }
-               
+                
                 
             }
             
@@ -156,9 +318,52 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         
     }
     
+    
+    func createSound(soundFiles: [String], outputFile: String) {
+        var startTime: CMTime = kCMTimeZero
+        let composition: AVMutableComposition = AVMutableComposition()
+        let compositionAudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaTypeAudio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        for fileName in soundFiles {
+            let sound: String = Bundle.main.path(forResource: fileName, ofType: "mp3")!
+            let url: URL = URL(fileURLWithPath: sound)
+            let avAsset: AVURLAsset = AVURLAsset(url: url)
+            let timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, avAsset.duration)
+            let audioTrack: AVAssetTrack = avAsset.tracks(withMediaType: AVMediaTypeAudio)[0]
+            
+            try! compositionAudioTrack.insertTimeRange(timeRange, of: audioTrack, at: startTime)
+            startTime = CMTimeAdd(startTime, timeRange.duration)
+        }
+        
+        let exportPath: String = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path+"/"+outputFile+".m4a"
+        
+        let export: AVAssetExportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A)!
+        
+        export.outputURL = URL(fileURLWithPath: exportPath)
+        export.outputFileType = AVFileTypeAppleM4A
+        
+        export.exportAsynchronously {
+            if export.status == AVAssetExportSessionStatus.completed {
+                NSLog("All done");
+            }
+        }
+        
+    }
+    
+    
+    
+    func displayAlert(timer: Timer)
+    {
+        var message = timer.userInfo as! String
+        let alertController = UIAlertController(title: "New Reminder Attention", message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK, I see", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
     func retrieveDataFromFirebase()
     {
-//        self.photos.removeAll()
+        //        self.photos.removeAll()
         // Retrieve the list of favourites and listen for changes
         
         let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
@@ -183,31 +388,31 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                 if let imageURL = photoURL {
                     let url = NSURL(string: imageURL as! String)
                     URLSession.shared.dataTask(with: url! as URL,
-                    completionHandler: {(data, response, error) in
-                    
-                        if error != nil {
-                            print(error)
-                            return
-                        }
-                        
-                        let addingPhoto = UIImage(data: data!)
-                        
-                        
-                        let newPhoto = Photo(title: Description, featuredImage: addingPhoto!, color: UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 0.6), audioURL: audioURL as! String)
-                        
-                        self.photos.append(newPhoto)
-                        
-                        DispatchQueue.main.async( execute: {
-                            
-                            self.collectionView.reloadData()
-                            activityView.stopAnimating()
-                        })
-                    print(self.photos.count)
+                                               completionHandler: {(data, response, error) in
+                                                
+                                                if error != nil {
+                                                    print(error)
+                                                    return
+                                                }
+                                                
+                                                let addingPhoto = UIImage(data: data!)
+                                                
+                                                
+                                                let newPhoto = Photo(title: Description, featuredImage: addingPhoto!, color: UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 0.6), audioURL: audioURL as! String)
+                                                
+                                                self.photos.append(newPhoto)
+                                                
+                                                DispatchQueue.main.async( execute: {
+                                                    
+                                                    self.collectionView.reloadData()
+                                                    activityView.stopAnimating()
+                                                })
+                                                print(self.photos.count)
                     }).resume()
                 }
             }
             self.collectionView.reloadData()
-
+            
         })
         
     }
@@ -240,43 +445,43 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         
         receivedDate = dateResult
         receivedTime = timeResult
- 
-//        DispatchQueue.global(qos: .background).async {
-//            // Background Thread
-            self.ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
-                
-                if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
+        
+        //        DispatchQueue.global(qos: .background).async {
+        //            // Background Thread
+        self.ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
+            {
+                let value = current.value as? NSDictionary
+                if let patLat = value?["patLat"] as? String
                 {
-                    let value = current.value as? NSDictionary
-                    if let patLat = value?["patLat"] as? String
-                    {
-                        if let patLng = value?["patLng"] as? String {
-                            receivedLat = patLat
-                            receivedLng = patLng
-                            
-                            print ("received \(receivedLat) and \(receivedLng)")
-                            eventName = "event\(receivedDate!)_\(receivedTime!)"
-                            self.newEvent = PanicEvent(receivedDate: receivedDate!, receivedTime: receivedTime!, receivedLat: receivedLat!, receivedLng: receivedLng!)
-                            values = ["eventName": eventName!, "receivedDate": receivedDate!, "receivedTime": receivedTime!, "receivedLat": receivedLat!, "receivedLng": receivedLng!, "resolved": "false", "resolvedDate": "nil", "resolvedTime": "nil"]
-                            ref2.child("panicEvents/testpatient").child(eventName!).setValue(values)
-//                            self.performSegue(withIdentifier: "showPanicMapSegue", sender: self)
-                        }
+                    if let patLng = value?["patLng"] as? String {
+                        receivedLat = patLat
+                        receivedLng = patLng
+                        
+                        print ("received \(receivedLat) and \(receivedLng)")
+                        eventName = "event\(receivedDate!)_\(receivedTime!)"
+                        self.newEvent = PanicEvent(receivedDate: receivedDate!, receivedTime: receivedTime!, receivedLat: receivedLat!, receivedLng: receivedLng!)
+                        values = ["eventName": eventName!, "receivedDate": receivedDate!, "receivedTime": receivedTime!, "receivedLat": receivedLat!, "receivedLng": receivedLng!, "resolved": "false", "resolvedDate": "nil", "resolvedTime": "nil"]
+                        ref2.child("panicEvents/testpatient").child(eventName!).setValue(values)
+                        //                            self.performSegue(withIdentifier: "showPanicMapSegue", sender: self)
                     }
                 }
-            })
-
-//            DispatchQueue.main.async {
-//
-//            }
-//        }
+            }
+        })
+        
+        //            DispatchQueue.main.async {
+        //
+        //            }
+        //        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if (segue.identifier == "showPanicMapSegue")
-//        {
-//            let destinationVC: PanicMapViewController = segue.destination as! PanicMapViewController
-//            destinationVC.currentPanicEvent = newEvent
-//        }
+        //        if (segue.identifier == "showPanicMapSegue")
+        //        {
+        //            let destinationVC: PanicMapViewController = segue.destination as! PanicMapViewController
+        //            destinationVC.currentPanicEvent = newEvent
+        //        }
         if (segue.identifier == "helpOnTheWaySegue")
         {
             let destinationVC: HelpMessageViewController = segue.destination as! HelpMessageViewController
@@ -292,31 +497,31 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
 
 extension PhotoViewController : UICollectionViewDataSource
 {
-
-        func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 1
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            print(photos.count)
-            return photos.count
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-        {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCollectionViewCell
-            cell.delegate = self
-//            let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-//            
-//            activityView.center = cell.contentView.center
-//            
-//             cell.contentView.addSubview(activityView)
-//            activityView.startAnimating()
-            cell.photo = photos[indexPath.item]
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//            activityView.stopAnimating()
-            return cell
-        }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(photos.count)
+        return photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCollectionViewCell
+        cell.delegate = self
+        //            let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        //
+        //            activityView.center = cell.contentView.center
+        //
+        //             cell.contentView.addSubview(activityView)
+        //            activityView.startAnimating()
+        cell.photo = photos[indexPath.item]
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        //            activityView.stopAnimating()
+        return cell
+    }
 }
 
 extension PhotoViewController : UIScrollViewDelegate, UICollectionViewDelegate
@@ -350,7 +555,7 @@ extension PhotoViewController : UIScrollViewDelegate, UICollectionViewDelegate
 //            }
 //            else{
 //                self.promptMessage(title: "Oops", message: "This is the last photo, you cannot delete it")
-//                
+//
 //            }
 //        })
 //        alert.addAction(UIAlertAction(title: "Add a new photo", style: .default) { action in
@@ -359,18 +564,18 @@ extension PhotoViewController : UIScrollViewDelegate, UICollectionViewDelegate
 //            self.picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
 //            self.picker.modalPresentationStyle = .popover
 //            self.present(self.picker, animated: true, completion: nil)
-//            
+//
 //        })
-//        
+//
 //        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
-//            
+//
 //        })
-//        
+//
 //        collectionView.reloadData()
 //        self.present(alert, animated: true)
 //        print("\(indexPath)")
 //    }
-//    
+//
 //
 //}
 //
@@ -381,52 +586,52 @@ extension PhotoViewController : UIScrollViewDelegate, UICollectionViewDelegate
 //    {
 //        var chosenImage = UIImage()
 //        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
-//        
+//
 //        dismiss(animated:true, completion: nil) //5
 //        showInputDialog()
-//        
+//
 //        self.chosenPhoto = chosenImage
 //    }
-//    
+//
 //    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 //        dismiss(animated: true, completion: nil)
 //    }
-//    
+//
 //    func showInputDialog(){
 //        //Creating UIAlertController and
 //        //Setting title and message for the alert dialog
 //        let alertController = UIAlertController(title: "Notice", message: "Enter a description for the photo, \n e.g This is my son.", preferredStyle: .alert)
-//        
+//
 //        //the confirm action taking the inputs
 //        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-//            
+//
 //            //getting the input values from user
 //            let photoDesc = (alertController.textFields?[0].text)!
 //            if photoDesc.isEmpty
 //            {
 //                self.promptMessage(title: "Oops", message: "The description cannot be null")
-//                
+//
 //            }
 //            else{
 //                let newPhoto = Photo(title: photoDesc, featuredImage: self.chosenPhoto!, color: UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 0.5))
 //                self.photos.append(newPhoto)
 //                self.collectionView.reloadData()
-//                
+//
 //                self.promptMessage(title: "Ta-da!", message: "You've successfully added a new photo")
 //
 //            }
-//            
+//
 //        }
-//        
+//
 //        //the cancel action doing nothing
 //        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-//        
+//
 //        //adding textfields to our dialog box
 //        alertController.addTextField { (textField) in
 //            textField.placeholder = "Enter Name"
 //        }
-//        
-//        
+//
+//
 //        //adding the action to dialogbox
 //        alertController.addAction(confirmAction)
 //        alertController.addAction(cancelAction)

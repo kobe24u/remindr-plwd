@@ -26,6 +26,10 @@
 		BF6C3CB11E8748F600DA9297 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3CB01E8748F600DA9297 /* Photo.swift */; };
 		BF6C3CB31E874A8300DA9297 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3CB21E874A8300DA9297 /* PhotoViewController.swift */; };
 		BF6C3D441E87932500DA9297 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3D431E87932500DA9297 /* WeatherModel.swift */; };
+		BF9546271EBAF3D200806C8B /* reminderSound.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BF9546241EBAF3D200806C8B /* reminderSound.m4a */; };
+		BF9546281EBAF3D200806C8B /* test2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BF9546251EBAF3D200806C8B /* test2.m4a */; };
+		BF9546291EBAF3D200806C8B /* testSound.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BF9546261EBAF3D200806C8B /* testSound.m4a */; };
+		BF95462B1EBAF41800806C8B /* reminderNotification.png in Resources */ = {isa = PBXBuildFile; fileRef = BF95462A1EBAF41800806C8B /* reminderNotification.png */; };
 		F8019E981EA5F96E0058D4EE /* HelpMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8019E971EA5F96E0058D4EE /* HelpMessageViewController.swift */; };
 		F816D4A01E8C665900BF3995 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D49F1E8C665900BF3995 /* Reachability.swift */; };
 		F816D4A21E8C6DB900BF3995 /* FavouritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4A11E8C6DB900BF3995 /* FavouritesTableViewController.swift */; };
@@ -123,6 +127,10 @@
 		BF6EAB211E8CA2C200A929DE /* Football Team.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Football Team.gpx"; sourceTree = "<group>"; };
 		BF6EAB221E8CA2E800A929DE /* Holiday.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Holiday.gpx; sourceTree = "<group>"; };
 		BF6EAB231E8CA31F00A929DE /* Pizza.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Pizza.gpx; sourceTree = "<group>"; };
+		BF9546241EBAF3D200806C8B /* reminderSound.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = reminderSound.m4a; sourceTree = "<group>"; };
+		BF9546251EBAF3D200806C8B /* test2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.m4a; sourceTree = "<group>"; };
+		BF9546261EBAF3D200806C8B /* testSound.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = testSound.m4a; sourceTree = "<group>"; };
+		BF95462A1EBAF41800806C8B /* reminderNotification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reminderNotification.png; sourceTree = "<group>"; };
 		DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carousel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8019E971EA5F96E0058D4EE /* HelpMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpMessageViewController.swift; sourceTree = "<group>"; };
 		F816D49F1E8C665900BF3995 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -240,6 +248,7 @@
 		BF6C3C7B1E8739C900DA9297 /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
+				BF9546231EBAF3A900806C8B /* Sounds */,
 				F85288CA1E9B92CF00595E0A /* Other Screens */,
 				F874473B1E9A1465009713AC /* NotificationImages */,
 				F88C5C0F1E8FF18E000F0965 /* Helpers */,
@@ -312,6 +321,16 @@
 			name = "Location simulation files";
 			sourceTree = "<group>";
 		};
+		BF9546231EBAF3A900806C8B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				BF9546241EBAF3D200806C8B /* reminderSound.m4a */,
+				BF9546251EBAF3D200806C8B /* test2.m4a */,
+				BF9546261EBAF3D200806C8B /* testSound.m4a */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		CE7D777959859562713EA82C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +353,7 @@
 		F874473B1E9A1465009713AC /* NotificationImages */ = {
 			isa = PBXGroup;
 			children = (
+				BF95462A1EBAF41800806C8B /* reminderNotification.png */,
 				F85925891EACAF6700609D2F /* husbandbill.png */,
 				F87447421E9A2CCF009713AC /* patientBackIcon.png */,
 				F87447481E9A3509009713AC /* patientBackIcon New.png */,
@@ -530,11 +550,15 @@
 				F87447441E9A2CCF009713AC /* patientBackIcon.png in Resources */,
 				F87447491E9A3509009713AC /* patientBackIcon New.png in Resources */,
 				F859258A1EACAF6700609D2F /* husbandbill.png in Resources */,
+				BF9546291EBAF3D200806C8B /* testSound.m4a in Resources */,
 				BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */,
 				F87447451E9A2CCF009713AC /* patientLeftIcon.png in Resources */,
 				BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */,
 				BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */,
+				BF9546271EBAF3D200806C8B /* reminderSound.m4a in Resources */,
 				F85925881EACAAE400609D2F /* GoogleService-Info.plist in Resources */,
+				BF95462B1EBAF41800806C8B /* reminderNotification.png in Resources */,
+				BF9546281EBAF3D200806C8B /* test2.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

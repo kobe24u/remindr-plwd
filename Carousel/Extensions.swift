@@ -16,7 +16,7 @@ extension UIImageView {
     {
         self.image = nil
         
-        // check cache for image first 
+        // check cache for image first
         if let cacheImage = imageCache.object(forKey: urlString as NSString) {
             self.image = cacheImage
             return
@@ -37,7 +37,7 @@ extension UIImageView {
                 if let downloadedImage = UIImage(data: data!) {
                     imageCache.setObject(downloadedImage, forKey: urlString as NSString)
                     self.image = downloadedImage
-
+                    
                 }
             }
             
