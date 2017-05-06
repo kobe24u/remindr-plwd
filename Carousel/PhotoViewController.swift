@@ -33,6 +33,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     let picker = UIImagePickerController()
     var chosenPhoto: UIImage?
     var weather = WeatherModel()
+    var reminderid: String?
     
     //    var photoList: NSMutableArray
     var ref: FIRDatabaseReference!
@@ -121,7 +122,34 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         case UNNotificationDefaultActionIdentifier:
             print("Default")
         case "Snooze":
-            print("Snooze")
+            print("The patient click the will do it button, we will change the reminder's completed setting to completed and upload to the server")
+            
+            
+            let ref = FIRDatabase.database().reference().child("reminders").child("testpatient")
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                
+                for current in snapshot.children.allObjects as! [FIRDataSnapshot]
+                {
+                    let value = current.value as? NSDictionary
+                    let id = value?["id"] as? String ?? ""
+                    
+                    if self.reminderid == id
+                    {
+                        ref.child("\(id)").child("completed").setValue("Yes")
+                        
+                        return
+                    }
+                }
+                
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
+            
+            
+            
         case "UYLDeleteAction":
             print("Delete")
         default:
@@ -146,6 +174,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
             for current in snapshot.children.allObjects as! [FIRDataSnapshot]
             {
                 let value = current.value as? NSDictionary
+//                self.reminderid = value?["id"] as? String ?? ""
+//                print(self.reminderid!)
                 let message = value?["message"] as? String ?? ""
                 let time = value?["time"]
                 let audioURL = value?["audioURL"] as? String ?? ""
@@ -160,6 +190,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                 }
                 else{
                     print(date)
+                    
+                    self.reminderid = value?["id"] as? String ?? ""
                     
                     var audioFileName: String?
                     if let audioUrl = URL(string: audioURL) {
@@ -230,7 +262,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                         content.userInfo = ["Type": "timerDone"]
                         //        content.badge = 1
                         print(audioFileName)
-                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
+                        content.sound = UNNotificationSound.default()
+//                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
                         
                         guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
                         let url = URL(fileURLWithPath: path)
@@ -279,7 +312,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                         //        content.badge = 1
                         content.categoryIdentifier = "UYLReminderCategory"
                         content.userInfo = ["Type": "timerDone"]
-                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
+                        content.sound = UNNotificationSound.default()
+//                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
                         
                         guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
                         let url = URL(fileURLWithPath: path)
