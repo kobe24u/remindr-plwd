@@ -200,7 +200,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
         print("Finished")
         self.loadingView.removeFromSuperview()
         self.delegate?.enableScrollingFunc()
-        let playImage = resizeImage(image: UIImage(named: "play")!, newWidth: CGFloat(30))
+        let playImage = resizeImage(image: UIImage(named: "play")!, newWidth: CGFloat(40))
         playButton.setImage(playImage, for: .normal)
         //        recordButton.isEnabled = true
         stopButton.isHidden = true
@@ -233,7 +233,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
         
         self.delegate?.disableScrollingFunc()
         //        if audioRecorder!.isRecording == false {
-        let stopImage = resizeImage(image: UIImage(named: "stop")!, newWidth: CGFloat(30))
+        let stopImage = resizeImage(image: UIImage(named: "stop")!, newWidth: CGFloat(40))
         stopButton = UIButton(frame: CGRect(x: 40, y: 270, width: 150, height: 64))
         stopButton.setImage(stopImage, for: .normal)
         playButton.isEnabled = true

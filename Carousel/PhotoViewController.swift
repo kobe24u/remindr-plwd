@@ -12,6 +12,7 @@ import AVFoundation
 import Firebase
 import FirebaseDatabase
 import UserNotifications
+import AudioToolbox
 
 class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNotificationCenterDelegate
 {
@@ -419,6 +420,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     
     @IBAction func didClickPanicButton(_ sender: Any) {
         
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         print ("User clicked panic button")
         var ref2: FIRDatabaseReference!
         ref2 = FIRDatabase.database().reference()
