@@ -236,12 +236,13 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                         let timer = Timer(fireAt: date!, interval: 0, target: self, selector: #selector(PhotoViewController.displayAlert(timer:)), userInfo: mes, repeats: false)
                         RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
                         // App is active, show an alert
-                        //                        let notification = UILocalNotification()
-                        //                        notification.alertTitle = "New Reminder Attention"
-                        //                        notification.alertBody = "\(message)"
-                        //                        notification.fireDate = date
-                        //                        notification.soundName = UILocalNotificationDefaultSoundName
-                        //                        UIApplication.shared.scheduleLocalNotification(notification)
+                        let notification = UILocalNotification()
+                        
+                        notification.alertTitle = "\(message.uppercased())"
+                        notification.alertBody = "Use iPhone for more operations"
+                        notification.fireDate = date
+                        notification.soundName = UILocalNotificationDefaultSoundName
+                        UIApplication.shared.scheduleLocalNotification(notification)
                         
                         let snoozeAction = UNNotificationAction(identifier: "Snooze",
                                                                 title: "Will do it", options: [])
@@ -255,9 +256,9 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                         
                         
                         let content = UNMutableNotificationContent()
-                        content.title = "Hi!"
-                        content.subtitle = "You have a new reminder, please check"
-                        content.body = "\(message)"
+                        content.title = "New reminder"
+                        content.subtitle = "Force click or drag for interactions"
+                        content.body = "\(message.uppercased())"
                         content.categoryIdentifier = "UYLReminderCategory"
                         content.userInfo = ["Type": "timerDone"]
                         //        content.badge = 1
@@ -306,9 +307,9 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                                                               intentIdentifiers: [], options: [])
                         
                         let content = UNMutableNotificationContent()
-                        content.title = "Hi!"
-                        content.subtitle = "You have a new reminder, please check"
-                        content.body = "\(message)"
+                        content.title = "New reminder"
+                        content.subtitle = "Force click or drag for interactions"
+                        content.body = "\(message.uppercased())"
                         //        content.badge = 1
                         content.categoryIdentifier = "UYLReminderCategory"
                         content.userInfo = ["Type": "timerDone"]
@@ -338,6 +339,14 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                         
                         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        
+                                                let notification = UILocalNotification()
+                                                notification.alertTitle = "\(message.uppercased())"
+                                                notification.alertBody = "Use iPhone for more operations"
+                        
+                                                notification.fireDate = date
+                                                notification.soundName = UILocalNotificationDefaultSoundName
+                                                UIApplication.shared.scheduleLocalNotification(notification)
                         
                         
                         
