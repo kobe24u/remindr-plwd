@@ -133,7 +133,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     
     func getCloudNotifications()
     {
-        ref.child("reminders/testpatient").observe(.value, with: {(snapshot) in
+        ref.child("reminders").child(AppDelegate.GlobalVariables.deviceUUID).observe(.value, with: {(snapshot) in
+        //ref.child("reminders/testpatient").observe(.value, with: {(snapshot) in
             
             // code to execute when child is changed
             // Take the value from snapshot and add it to the favourites list
@@ -373,7 +374,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         self.view.addSubview(activityView)
         activityView.startAnimating()
         
-        ref.child("Photos/testpatient").observe(.value, with: {(snapshot) in
+        ref.child("Photos").child(AppDelegate.GlobalVariables.deviceUUID).observe(.value, with: {(snapshot) in
+        //ref.child("Photos/testpatient").observe(.value, with: {(snapshot) in
             
             self.photos.removeAll()
             // code to execute when child is changed
@@ -424,7 +426,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         print ("User clicked panic button")
         var ref2: FIRDatabaseReference!
         ref2 = FIRDatabase.database().reference()
-        ref2.child("panicked/testpatient/isPanicked").setValue("true")
+        ref2.child("panicked").child(AppDelegate.GlobalVariables.deviceUUID).child("isPanicked").setValue("true")
+        //ref2.child("panicked/testpatient/isPanicked").setValue("true")
         
         var values: [String: Any]? = nil
         var eventName: String?
@@ -452,7 +455,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         //            // Background Thread
         self.ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             
-            if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
+            if let current = snapshot.childSnapshot(forPath: AppDelegate.GlobalVariables.deviceUUID) as? FIRDataSnapshot
+            //if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
             {
                 let value = current.value as? NSDictionary
                 if let patLat = value?["patLat"] as? String
@@ -465,7 +469,9 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                         eventName = "event\(receivedDate!)_\(receivedTime!)"
                         self.newEvent = PanicEvent(receivedDate: receivedDate!, receivedTime: receivedTime!, receivedLat: receivedLat!, receivedLng: receivedLng!)
                         values = ["eventName": eventName!, "receivedDate": receivedDate!, "receivedTime": receivedTime!, "receivedLat": receivedLat!, "receivedLng": receivedLng!, "resolved": "false", "resolvedDate": "nil", "resolvedTime": "nil"]
-                        ref2.child("panicEvents/testpatient").child(eventName!).setValue(values)
+                        
+                        ref2.child("panicEvents").child(AppDelegate.GlobalVariables.deviceUUID).child(eventName!).setValue(values)
+                        //ref2.child("panicEvents/testpatient").child(eventName!).setValue(values)
                         //                            self.performSegue(withIdentifier: "showPanicMapSegue", sender: self)
                     }
                 }

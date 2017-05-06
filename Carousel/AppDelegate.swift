@@ -15,6 +15,10 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
     
+    struct GlobalVariables {
+        static var deviceUUID = "Unknown"
+    }
+    
     var window: UIWindow?
     let locationManager = CLLocationManager()
     var ref: FIRDatabaseReference?
@@ -52,6 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
         }
         
+        // Reading device UUID which acts as the patient ID
+        GlobalVariables.deviceUUID = UIDevice.current.identifierForVendor!.uuidString
+
         
         FIRApp.configure()
         
@@ -126,6 +133,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        // Reading device UUID which acts as the patient ID
+        GlobalVariables.deviceUUID = UIDevice.current.identifierForVendor!.uuidString
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -196,7 +206,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let title = "Good Job!"
             let message = "You're back inside your safe zone: \(region.identifier). Your caregiver will be notified."
             
-            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("false")
+            //self.ref?.child("geofencing/testpatient/violated").setValue("false")
             
             if UIApplication.shared.applicationState == .active {
                 // App is active, show an alert
@@ -227,7 +238,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let title = "Beware"
             let message = "You are leaving your safe zone: \(region.identifier). Your caregiver will be notified."
             
-            self.ref?.child("geofencing/testpatient/violated").setValue("true")
+            self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("true")
+            //self.ref?.child("geofencing/testpatient/violated").setValue("true")
             
             if UIApplication.shared.applicationState == .active {
                 // App is active, show an alert
@@ -251,8 +263,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
-        self.ref?.child("users/testpatient/patLat").setValue(String(locValue.latitude))
-        self.ref?.child("users/testpatient/patLng").setValue(String(locValue.longitude))
+        
+        self.ref?.child("users").child(GlobalVariables.deviceUUID).child("patLat").setValue(String(locValue.latitude))
+        self.ref?.child("users").child(GlobalVariables.deviceUUID).child("patLng").setValue(String(locValue.longitude))
+        //self.ref?.child("users/testpatient/patLat").setValue(String(locValue.latitude))
+        //self.ref?.child("users/testpatient/patLng").setValue(String(locValue.longitude))
         
     }
     
@@ -267,7 +282,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
             
             
-            if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
+            //if let current = snapshot.childSnapshot(forPath: "testpatient") as? FIRDataSnapshot
+            if let current = snapshot.childSnapshot(forPath: GlobalVariables.deviceUUID) as? FIRDataSnapshot
             {
                 let value = current.value as? NSDictionary
                 if let location = value?["locationName"] as? String
@@ -310,21 +326,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         switch(state)
         {
         case CLRegionState.outside:
-            self.ref?.child("geofencing/testpatient/violated").setValue("true")
+            self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("true")
+            //self.ref?.child("geofencing/testpatient/violated").setValue("true")
             print ("patient is outside")
+            
         case CLRegionState.inside:
-            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("false")
+            //self.ref?.child("geofencing/testpatient/violated").setValue("false")
             print ("patient is inside")
+            
         case CLRegionState.unknown:
-            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("false")
+            //self.ref?.child("geofencing/testpatient/violated").setValue("false")
             print ("patient location is unknown")
+            
         default:
-            self.ref?.child("geofencing/testpatient/violated").setValue("false")
+            self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("false")
+            //self.ref?.child("geofencing/testpatient/violated").setValue("false")
             
         }
     }
-    
-    
     
     
     func removePreviousGeofence(previousGeofence: Geofence)
@@ -344,6 +365,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager.stopMonitoring(for: geofence)
         }
     }
-    
 }
 
