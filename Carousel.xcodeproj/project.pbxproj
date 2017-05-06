@@ -45,6 +45,8 @@
 		F87447491E9A3509009713AC /* patientBackIcon New.png in Resources */ = {isa = PBXBuildFile; fileRef = F87447481E9A3509009713AC /* patientBackIcon New.png */; };
 		F88C5C111E8FF1A6000F0965 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C5C101E8FF1A6000F0965 /* Extensions.swift */; };
 		F89698EF1E95D72B00777AFC /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89698EE1E95D72B00777AFC /* Geofence.swift */; };
+		F89E57321EBD5EA6006FA69D /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F89E57311EBD5EA6006FA69D /* data.plist */; };
+		F8DC75FA1EBD5CBA00983773 /* QRCodeGeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DC75F91EBD5CBA00983773 /* QRCodeGeneratorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +149,8 @@
 		F87447481E9A3509009713AC /* patientBackIcon New.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "patientBackIcon New.png"; sourceTree = "<group>"; };
 		F88C5C101E8FF1A6000F0965 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F89698EE1E95D72B00777AFC /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
+		F89E57311EBD5EA6006FA69D /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
+		F8DC75F91EBD5CBA00983773 /* QRCodeGeneratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeGeneratorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +252,7 @@
 		BF6C3C7B1E8739C900DA9297 /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
+				F8DC75F71EBD5C5E00983773 /* QRCode */,
 				BF9546231EBAF3A900806C8B /* Sounds */,
 				F85288CA1E9B92CF00595E0A /* Other Screens */,
 				F874473B1E9A1465009713AC /* NotificationImages */,
@@ -368,6 +373,23 @@
 				F88C5C101E8FF1A6000F0965 /* Extensions.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		F8DC75F71EBD5C5E00983773 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				F8DC75F81EBD5C6B00983773 /* ViewController */,
+				F89E57311EBD5EA6006FA69D /* data.plist */,
+			);
+			name = QRCode;
+			sourceTree = "<group>";
+		};
+		F8DC75F81EBD5C6B00983773 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F8DC75F91EBD5CBA00983773 /* QRCodeGeneratorViewController.swift */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -551,6 +573,7 @@
 				F87447491E9A3509009713AC /* patientBackIcon New.png in Resources */,
 				F859258A1EACAF6700609D2F /* husbandbill.png in Resources */,
 				BF9546291EBAF3D200806C8B /* testSound.m4a in Resources */,
+				F89E57321EBD5EA6006FA69D /* data.plist in Resources */,
 				BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */,
 				F87447451E9A2CCF009713AC /* patientLeftIcon.png in Resources */,
 				BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */,
@@ -651,6 +674,7 @@
 				F816D4A01E8C665900BF3995 /* Reachability.swift in Sources */,
 				BF6C3CAE1E87433300DA9297 /* PhotoCollectionViewCell.swift in Sources */,
 				BF6C3C851E8739C900DA9297 /* Carousel.xcdatamodeld in Sources */,
+				F8DC75FA1EBD5CBA00983773 /* QRCodeGeneratorViewController.swift in Sources */,
 				BF6C3C7D1E8739C900DA9297 /* AppDelegate.swift in Sources */,
 				F816D4A61E8C6E3900BF3995 /* FavouriteCell.swift in Sources */,
 				F89698EF1E95D72B00777AFC /* Geofence.swift in Sources */,
