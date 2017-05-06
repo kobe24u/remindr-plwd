@@ -214,6 +214,75 @@
             </objects>
             <point key="canvasLocation" x="-1074" y="954"/>
         </scene>
+        <!--Code Generator View Controller-->
+        <scene sceneID="2rw-6h-Dvb">
+            <objects>
+                <viewController id="wCL-hC-9Kk" customClass="QRCodeGeneratorViewController" customModule="Carousel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fbu-p4-Jnz"/>
+                        <viewControllerLayoutGuide type="bottom" id="xpN-u0-6Q3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uKg-Ps-v8C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightgreytexturedbackground" translatesAutoresizingMaskIntoConstraints="NO" id="fHV-am-w4c">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="lQc-sx-mKe">
+                                <rect key="frame" x="16" y="57" width="343" height="301"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use ReMindr - Caregiver to scan this QR code and link with this person" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAL-9j-GSX">
+                                <rect key="frame" x="16" y="366" width="343" height="74"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="2CY-cm-xfk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="19"/>
+                                <color key="textColor" red="0.1764705882" green="0.33725490200000002" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9C-ce-Uet">
+                                <rect key="frame" x="16" y="473" width="343" height="42"/>
+                                <color key="backgroundColor" red="0.1764705882" green="0.33725490200000002" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="x2d-jH-yqK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="returnToMainView:" destination="wCL-hC-9Kk" eventType="touchUpInside" id="XT4-5G-05s"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cAL-9j-GSX" firstAttribute="leading" secondItem="j9C-ce-Uet" secondAttribute="leading" id="1RL-2a-h8z"/>
+                            <constraint firstItem="lQc-sx-mKe" firstAttribute="leading" secondItem="cAL-9j-GSX" secondAttribute="leading" id="3qq-r1-4PX"/>
+                            <constraint firstItem="j9C-ce-Uet" firstAttribute="top" secondItem="cAL-9j-GSX" secondAttribute="bottom" constant="33" id="D6y-d7-e85"/>
+                            <constraint firstItem="fHV-am-w4c" firstAttribute="top" secondItem="uKg-Ps-v8C" secondAttribute="top" id="FRW-as-1Af"/>
+                            <constraint firstItem="lQc-sx-mKe" firstAttribute="top" secondItem="fbu-p4-Jnz" secondAttribute="bottom" constant="37" id="OON-lm-e5Y"/>
+                            <constraint firstItem="fHV-am-w4c" firstAttribute="bottom" secondItem="xpN-u0-6Q3" secondAttribute="top" id="Zep-06-kGo"/>
+                            <constraint firstItem="cAL-9j-GSX" firstAttribute="trailing" secondItem="j9C-ce-Uet" secondAttribute="trailing" id="baw-sY-cjX"/>
+                            <constraint firstItem="cAL-9j-GSX" firstAttribute="top" secondItem="lQc-sx-mKe" secondAttribute="bottom" constant="8" symbolic="YES" id="e5A-qT-RlY"/>
+                            <constraint firstItem="fHV-am-w4c" firstAttribute="centerX" secondItem="lQc-sx-mKe" secondAttribute="centerX" id="hwu-GM-SZC"/>
+                            <constraint firstItem="lQc-sx-mKe" firstAttribute="trailing" secondItem="cAL-9j-GSX" secondAttribute="trailing" id="nvd-X4-x8C"/>
+                            <constraint firstItem="fHV-am-w4c" firstAttribute="leading" secondItem="uKg-Ps-v8C" secondAttribute="leading" id="phQ-Ff-yx2"/>
+                            <constraint firstItem="lQc-sx-mKe" firstAttribute="leading" secondItem="uKg-Ps-v8C" secondAttribute="leadingMargin" id="rk6-gM-z84"/>
+                            <constraint firstAttribute="trailing" secondItem="fHV-am-w4c" secondAttribute="trailing" id="xOr-QF-wxU"/>
+                            <constraint firstItem="xpN-u0-6Q3" firstAttribute="top" secondItem="j9C-ce-Uet" secondAttribute="bottom" constant="103" id="yGY-CO-gma"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="doneButton" destination="j9C-ce-Uet" id="0SN-g8-lOw"/>
+                        <outlet property="qrCodeImageView" destination="lQc-sx-mKe" id="RFn-zT-epc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UOS-Lw-XRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1050.4000000000001" y="-368.36581709145429"/>
+        </scene>
         <!--Memories-->
         <scene sceneID="yCT-hE-LV5">
             <objects>
@@ -329,6 +398,14 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myy-C3-3k3">
+                                <rect key="frame" x="174" y="55" width="26" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="qrcode"/>
+                                <connections>
+                                    <segue destination="wCL-hC-9Kk" kind="show" id="eBY-US-QdH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -12249,10 +12326,12 @@ VAAKv1kACr9hAAq/ZAAKv2kACr94AAq/fAAKv4MACr+LAAq/mAAKv50ACr+fAAq/oQAKv6YACr+uAAq/
 sQAKv7YACr++AAq/wQAKv9MACr/WAAq/2wAAAAAAAAQBAAAAAAAAAD4AAAAAAAAAAAAAAAAACr/dA
 </mutableData>
         </image>
+        <image name="lightgreytexturedbackground" width="550" height="250"/>
         <image name="marker" width="100" height="100"/>
         <image name="panicButtonNew" width="207" height="205"/>
         <image name="phonecallgreen" width="100" height="100"/>
         <image name="pictures" width="32" height="32"/>
+        <image name="qrcode" width="26" height="26"/>
         <image name="returngreen" width="100" height="100"/>
         <image name="videocallgreen" width="96" height="96"/>
     </resources>
