@@ -517,14 +517,14 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                                                 
                                                 DispatchQueue.main.async( execute: {
                                                     
-                                                    self.collectionView.reloadData()
+//                                                    self.collectionView.reloadData()
                                                     activityView.stopAnimating()
                                                 })
                                                 print(self.photos.count)
                     }).resume()
                 }
             }
-//            self.collectionView.reloadData()
+            self.collectionView.reloadData()
             DispatchQueue.main.async( execute: {
                 activityView.stopAnimating()
                 if (self.photos.count == 0 && !hasChildren)
