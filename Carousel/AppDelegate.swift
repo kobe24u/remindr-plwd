@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         content.sound = UNNotificationSound.default()
         //        content.sound = UNNotificationSound.init(named: "test2.m4a")
         
-        guard let path = Bundle.main.path(forResource: "husbandbill", ofType: "png") else {return}
+        guard let path = Bundle.main.path(forResource: "applogo", ofType: "png") else {return}
         let url = URL(fileURLWithPath: path)
         do {
             let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
@@ -204,7 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
             // Notify the user when they have entered a region
             let title = "Good Job!"
-            let message = "You're back inside your safe zone: \(region.identifier). Your caregiver will be notified."
+            let message = "You're back inside your safety zone. Your caregiver will be notified."
             
             self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("false")
             //self.ref?.child("geofencing/testpatient/violated").setValue("false")
@@ -236,7 +236,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("Exited region \(region.identifier)")
             // Notify the user when they have entered a region
             let title = "Beware"
-            let message = "You are leaving your safe zone: \(region.identifier). Your caregiver will be notified."
+            let message = "You are leaving your safety zone. Your caregiver will be notified."
             
             self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("true")
             //self.ref?.child("geofencing/testpatient/violated").setValue("true")
@@ -264,6 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         
+        self.ref?.child("users").child(GlobalVariables.deviceUUID).child("username").setValue(GlobalVariables.deviceUUID)
         self.ref?.child("users").child(GlobalVariables.deviceUUID).child("patLat").setValue(String(locValue.latitude))
         self.ref?.child("users").child(GlobalVariables.deviceUUID).child("patLng").setValue(String(locValue.longitude))
         //self.ref?.child("users/testpatient/patLat").setValue(String(locValue.latitude))

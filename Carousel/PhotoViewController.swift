@@ -19,12 +19,12 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var weatherImage: UIImageView!
+
+    @IBOutlet weak var panicButton: UIButton!
     
-    @IBOutlet weak var tempLabel: UILabel!
+
     
-    
-    @IBOutlet weak var locationLabel: UILabel!
+
     
     var newEvent: PanicEvent? = nil
     
@@ -34,6 +34,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     var chosenPhoto: UIImage?
     var weather = WeatherModel()
     var reminderid: String?
+    var oopsFlag: Bool?
     
     //    var photoList: NSMutableArray
     var ref: FIRDatabaseReference!
@@ -50,6 +51,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     override  func viewDidLoad() {
         super.viewDidLoad()
         
+        self.panicButton.layer.cornerRadius = 10
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         
@@ -58,9 +60,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         ref = FIRDatabase.database().reference()
         //        retrieveDataFromFirebase()
         
-        weather.downloadData {
-            self.updateWeatherUI()
-        }
+        
         let screenSize = UIScreen.main.bounds.size
         let cellWidth = floor(screenSize.width * cellScaling)
         let cellHeight = floor(screenSize.height * cellScaling)
@@ -103,11 +103,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         self.collectionView.isScrollEnabled = true
     }
     
-    func updateWeatherUI() {
-        tempLabel.text = "\(weather.temp)"
-        locationLabel.text = "\(weather.location)"
-        weatherImage.image = UIImage(named: weather.weather)
-    }
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -479,10 +475,17 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         activityView.color = UIColor.black
         activityView.center = self.view.center
         self.view.addSubview(activityView)
+        
         activityView.startAnimating()
         
         ref.child("Photos").child(AppDelegate.GlobalVariables.deviceUUID).observe(.value, with: {(snapshot) in
         //ref.child("Photos/testpatient").observe(.value, with: {(snapshot) in
+            
+            var hasChildren: Bool = false
+            if snapshot.hasChildren()
+            {
+                hasChildren = true
+            }
             
             self.photos.removeAll()
             // code to execute when child is changed
@@ -521,10 +524,32 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                     }).resume()
                 }
             }
-            self.collectionView.reloadData()
+//            self.collectionView.reloadData()
+            DispatchQueue.main.async( execute: {
+                activityView.stopAnimating()
+                if (self.photos.count == 0 && !hasChildren)
+                {
+                    self.promptMessage(title: "Oops", message: "No photos to display")
+                }
+                
+                
+            })
             
         })
         
+    }
+    
+    func promptMessage(title: String, message: String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        
+        // change to desired number of seconds (in this case 5 seconds)
+        let when = DispatchTime.now() + 4
+        DispatchQueue.main.asyncAfter(deadline: when){
+            // your code with delay
+            alert.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func didClickPanicButton(_ sender: Any) {

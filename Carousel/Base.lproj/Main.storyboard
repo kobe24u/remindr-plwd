@@ -276,6 +276,7 @@
                     </view>
                     <connections>
                         <outlet property="doneButton" destination="j9C-ce-Uet" id="0SN-g8-lOw"/>
+                        <outlet property="outerView" destination="uKg-Ps-v8C" id="dAg-cl-nHX"/>
                         <outlet property="qrCodeImageView" destination="lQc-sx-mKe" id="RFn-zT-epc"/>
                     </connections>
                 </viewController>
@@ -299,33 +300,16 @@
                                 <rect key="frame" x="16" y="91" width="343" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1w4-Lp-nE2">
-                                <rect key="frame" x="16" y="35" width="45.5" height="32"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.1764705882" green="0.33725490200000002" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctq-M9-AGZ">
-                                <rect key="frame" x="16" y="64" width="89" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="Jcm-Uy-U1C"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" red="0.1764705882" green="0.33725490200000002" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fWQ-rc-F0l">
-                                <rect key="frame" x="63" y="35" width="42" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="G1q-6m-fHb"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdN-ZE-y2e">
-                                <rect key="frame" x="285" y="14" width="74" height="74"/>
+                                <rect key="frame" x="190" y="27" width="169" height="56"/>
+                                <color key="backgroundColor" red="1" green="0.2408901923" blue="0.012549498500000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="74" id="shO-Fy-r9l"/>
+                                    <constraint firstAttribute="width" constant="169" id="iss-Uk-SKo"/>
                                 </constraints>
-                                <state key="normal" image="panicButtonNew"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                <state key="normal" title=" HELP" image="button:BdN-ZE-y2e:image">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="didClickPanicButton:" destination="mMM-Sg-fPD" eventType="touchUpInside" id="qNd-uT-oQt"/>
                                     <segue destination="afM-mo-d60" kind="show" identifier="helpOnTheWaySegue" id="jw6-CS-v7F"/>
@@ -334,6 +318,9 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0Ga-36-hWe">
                                 <rect key="frame" x="16" y="96" width="343" height="468"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="468" id="NhJ-Sj-VQR"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="D10-W3-gNG">
                                     <size key="itemSize" width="261" height="434"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -341,66 +328,69 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="PhotoCell" id="d6l-5k-8pc" customClass="PhotoCollectionViewCell" customModule="Carousel" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="PhotoCell" id="DZV-72-7Ws" customClass="PhotoCollectionViewCell" customModule="Carousel" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="17" width="261" height="434"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="261" height="434"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:8zS-gG-pLO:image" translatesAutoresizingMaskIntoConstraints="NO" id="8zS-gG-pLO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="261" height="434"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:CDV-di-6hm:image" translatesAutoresizingMaskIntoConstraints="NO" id="CDV-di-6hm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="400"/>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kej-kE-RpJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="281" height="455"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcy-F1-HNp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="400"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to make some changes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxn-Dm-GmP">
-                                                            <rect key="frame" x="8" y="369.5" width="245" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to make some changes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYn-JQ-Cgd">
+                                                            <rect key="frame" x="8" y="315" width="184" height="41"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="akm-sS-gGk">
-                                                            <rect key="frame" x="86" y="398" width="89" height="28"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Erv-wf-LgA">
+                                                            <rect key="frame" x="86" y="364" width="28" height="28"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="28" id="ZMS-fM-I8e"/>
+                                                                <constraint firstAttribute="height" constant="28" id="SeD-Op-FfD"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.18823529410000001" green="0.2156862745" blue="0.23529411759999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="akm-sS-gGk" firstAttribute="leading" secondItem="Kej-kE-RpJ" secondAttribute="leading" constant="86" id="FKv-op-i0K"/>
-                                                        <constraint firstItem="akm-sS-gGk" firstAttribute="centerX" secondItem="Zxn-Dm-GmP" secondAttribute="centerX" id="XBK-ev-Ket"/>
-                                                        <constraint firstItem="Zxn-Dm-GmP" firstAttribute="leading" secondItem="Kej-kE-RpJ" secondAttribute="leadingMargin" id="gRq-bv-xfL"/>
-                                                        <constraint firstItem="akm-sS-gGk" firstAttribute="top" secondItem="Zxn-Dm-GmP" secondAttribute="bottom" constant="8" symbolic="YES" id="qTg-kp-vgS"/>
-                                                        <constraint firstItem="akm-sS-gGk" firstAttribute="bottom" secondItem="Kej-kE-RpJ" secondAttribute="bottomMargin" id="qh6-MH-XtR"/>
-                                                        <constraint firstItem="Zxn-Dm-GmP" firstAttribute="trailing" secondItem="Kej-kE-RpJ" secondAttribute="trailingMargin" id="vnu-fF-0DW"/>
+                                                        <constraint firstItem="YYn-JQ-Cgd" firstAttribute="leading" secondItem="vcy-F1-HNp" secondAttribute="leadingMargin" id="X2y-la-BVE"/>
+                                                        <constraint firstItem="Erv-wf-LgA" firstAttribute="top" secondItem="YYn-JQ-Cgd" secondAttribute="bottom" constant="8" symbolic="YES" id="d1a-E1-7dh"/>
+                                                        <constraint firstItem="Erv-wf-LgA" firstAttribute="leading" secondItem="vcy-F1-HNp" secondAttribute="leading" constant="86" id="lIj-UW-Vbp"/>
+                                                        <constraint firstItem="YYn-JQ-Cgd" firstAttribute="trailing" secondItem="vcy-F1-HNp" secondAttribute="trailingMargin" id="otK-zQ-9OM"/>
+                                                        <constraint firstItem="Erv-wf-LgA" firstAttribute="bottom" secondItem="vcy-F1-HNp" secondAttribute="bottomMargin" id="sVs-r2-gRe"/>
+                                                        <constraint firstItem="Erv-wf-LgA" firstAttribute="centerX" secondItem="YYn-JQ-Cgd" secondAttribute="centerX" id="tct-Mk-zzo"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="Kej-kE-RpJ" firstAttribute="top" secondItem="d6l-5k-8pc" secondAttribute="top" id="0QP-tG-kZr"/>
-                                            <constraint firstAttribute="trailing" secondItem="Kej-kE-RpJ" secondAttribute="trailing" id="9C4-P8-dRM"/>
-                                            <constraint firstItem="8zS-gG-pLO" firstAttribute="trailing" secondItem="Kej-kE-RpJ" secondAttribute="trailing" id="Ggl-kB-oQI"/>
-                                            <constraint firstAttribute="bottom" secondItem="Kej-kE-RpJ" secondAttribute="bottom" id="KwS-EB-gi1"/>
-                                            <constraint firstItem="8zS-gG-pLO" firstAttribute="leading" secondItem="d6l-5k-8pc" secondAttribute="leading" id="Ts7-uQ-6Hb"/>
-                                            <constraint firstItem="Kej-kE-RpJ" firstAttribute="leading" secondItem="8zS-gG-pLO" secondAttribute="leading" id="k1n-f0-0kh"/>
-                                            <constraint firstItem="8zS-gG-pLO" firstAttribute="top" secondItem="Kej-kE-RpJ" secondAttribute="top" id="nnO-2r-ztk"/>
-                                            <constraint firstItem="Kej-kE-RpJ" firstAttribute="bottom" secondItem="8zS-gG-pLO" secondAttribute="bottom" id="yCJ-2Y-kys"/>
+                                            <constraint firstItem="vcy-F1-HNp" firstAttribute="leading" secondItem="CDV-di-6hm" secondAttribute="leading" id="5CD-PY-TSK"/>
+                                            <constraint firstItem="vcy-F1-HNp" firstAttribute="bottom" secondItem="CDV-di-6hm" secondAttribute="bottom" id="6dd-9X-vQt"/>
+                                            <constraint firstItem="vcy-F1-HNp" firstAttribute="top" secondItem="DZV-72-7Ws" secondAttribute="top" id="AS1-AL-37Y"/>
+                                            <constraint firstAttribute="trailing" secondItem="vcy-F1-HNp" secondAttribute="trailing" id="I9L-jA-Qzy"/>
+                                            <constraint firstItem="CDV-di-6hm" firstAttribute="top" secondItem="vcy-F1-HNp" secondAttribute="top" id="Osj-tX-7l1"/>
+                                            <constraint firstAttribute="bottom" secondItem="vcy-F1-HNp" secondAttribute="bottom" id="QeH-TV-6ys"/>
+                                            <constraint firstItem="CDV-di-6hm" firstAttribute="leading" secondItem="DZV-72-7Ws" secondAttribute="leading" id="RKh-W9-VuA"/>
+                                            <constraint firstItem="CDV-di-6hm" firstAttribute="trailing" secondItem="vcy-F1-HNp" secondAttribute="trailing" id="X48-dF-RV3"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="affinityLabel" destination="akm-sS-gGk" id="lzJ-5r-tQZ"/>
-                                            <outlet property="backgroundColorView" destination="Kej-kE-RpJ" id="12M-II-Cv3"/>
-                                            <outlet property="featuredImageView" destination="8zS-gG-pLO" id="FKH-6j-N6u"/>
-                                            <outlet property="photoTitleLabel" destination="Zxn-Dm-GmP" id="V2l-28-Qqh"/>
+                                            <outlet property="affinityLabel" destination="Erv-wf-LgA" id="bsV-v2-SM2"/>
+                                            <outlet property="backgroundColorView" destination="vcy-F1-HNp" id="sXf-n5-RDq"/>
+                                            <outlet property="featuredImageView" destination="CDV-di-6hm" id="qSP-nQ-nT5"/>
+                                            <outlet property="photoTitleLabel" destination="YYn-JQ-Cgd" id="RG7-Up-hS2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myy-C3-3k3">
-                                <rect key="frame" x="174" y="55" width="26" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myy-C3-3k3">
+                                <rect key="frame" x="0.0" y="28" width="58" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="C1s-P1-EpL"/>
+                                    <constraint firstAttribute="width" constant="58" id="INg-Tu-Wdv"/>
+                                </constraints>
                                 <state key="normal" image="qrcode"/>
                                 <connections>
                                     <segue destination="wCL-hC-9Kk" kind="show" identifier="showQRSegue" id="eBY-US-QdH"/>
@@ -409,35 +399,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fWQ-rc-F0l" firstAttribute="centerY" secondItem="BdN-ZE-y2e" secondAttribute="centerY" id="0Iz-Br-vYT"/>
-                            <constraint firstItem="0Ga-36-hWe" firstAttribute="top" secondItem="ctq-M9-AGZ" secondAttribute="bottom" constant="8" symbolic="YES" id="1OU-T5-wQY"/>
-                            <constraint firstItem="ctq-M9-AGZ" firstAttribute="leading" secondItem="QnC-er-KgN" secondAttribute="leading" id="547-wc-va8"/>
-                            <constraint firstItem="1w4-Lp-nE2" firstAttribute="leading" secondItem="1Mc-9k-6JT" secondAttribute="leadingMargin" id="5gt-lL-GeR"/>
-                            <constraint firstItem="fWQ-rc-F0l" firstAttribute="leading" secondItem="1Mc-9k-6JT" secondAttribute="leadingMargin" constant="47" id="8Ne-OA-C8T"/>
-                            <constraint firstItem="QnC-er-KgN" firstAttribute="top" secondItem="ctq-M9-AGZ" secondAttribute="bottom" constant="3" id="A8a-G2-sIH"/>
-                            <constraint firstItem="1w4-Lp-nE2" firstAttribute="bottom" secondItem="fWQ-rc-F0l" secondAttribute="bottom" id="EgF-NU-LUN"/>
-                            <constraint firstItem="QnC-er-KgN" firstAttribute="leading" secondItem="0Ga-36-hWe" secondAttribute="leading" id="JQK-3m-UU7"/>
-                            <constraint firstItem="1w4-Lp-nE2" firstAttribute="top" secondItem="fWQ-rc-F0l" secondAttribute="top" id="KIf-36-OJQ"/>
-                            <constraint firstItem="QnC-er-KgN" firstAttribute="top" secondItem="1w4-Lp-nE2" secondAttribute="bottom" constant="24" id="Qti-DS-gOA"/>
-                            <constraint firstItem="0Ga-36-hWe" firstAttribute="top" secondItem="QnC-er-KgN" secondAttribute="bottom" constant="4" id="Rrv-dj-5UH"/>
-                            <constraint firstItem="fWQ-rc-F0l" firstAttribute="trailing" secondItem="ctq-M9-AGZ" secondAttribute="trailing" id="Tah-E5-KPF"/>
-                            <constraint firstItem="QnC-er-KgN" firstAttribute="trailing" secondItem="0Ga-36-hWe" secondAttribute="trailing" id="XEG-wF-mgo"/>
-                            <constraint firstItem="1w4-Lp-nE2" firstAttribute="leading" secondItem="ctq-M9-AGZ" secondAttribute="leading" id="Ytd-cp-jeE"/>
-                            <constraint firstItem="0Ga-36-hWe" firstAttribute="top" secondItem="BdN-ZE-y2e" secondAttribute="bottom" constant="8" symbolic="YES" id="dY2-MP-Xt7"/>
-                            <constraint firstItem="goK-ge-mSp" firstAttribute="top" secondItem="0Ga-36-hWe" secondAttribute="bottom" constant="54" id="rUv-31-X46"/>
-                            <constraint firstItem="1w4-Lp-nE2" firstAttribute="top" secondItem="b1T-Ct-KRn" secondAttribute="bottom" constant="15" id="sQx-kc-mL9"/>
-                            <constraint firstItem="BdN-ZE-y2e" firstAttribute="trailing" secondItem="1Mc-9k-6JT" secondAttribute="trailingMargin" id="scX-hx-4MO"/>
-                            <constraint firstItem="ctq-M9-AGZ" firstAttribute="top" secondItem="b1T-Ct-KRn" secondAttribute="bottom" constant="44" id="tLd-GO-eEE"/>
-                            <constraint firstItem="BdN-ZE-y2e" firstAttribute="trailing" secondItem="QnC-er-KgN" secondAttribute="trailing" id="zaX-PO-tMq"/>
+                            <constraint firstItem="QnC-er-KgN" firstAttribute="leading" secondItem="0Ga-36-hWe" secondAttribute="leading" id="3O2-85-w0F"/>
+                            <constraint firstItem="Myy-C3-3k3" firstAttribute="top" secondItem="b1T-Ct-KRn" secondAttribute="bottom" constant="8" symbolic="YES" id="4ha-1w-sNn"/>
+                            <constraint firstItem="QnC-er-KgN" firstAttribute="top" secondItem="Myy-C3-3k3" secondAttribute="bottom" constant="8" symbolic="YES" id="Ceq-M1-6E2"/>
+                            <constraint firstItem="0Ga-36-hWe" firstAttribute="top" secondItem="QnC-er-KgN" secondAttribute="bottom" constant="4" id="KfK-Y7-ZaE"/>
+                            <constraint firstItem="QnC-er-KgN" firstAttribute="top" secondItem="BdN-ZE-y2e" secondAttribute="bottom" constant="8" symbolic="YES" id="Nc4-xP-IGX"/>
+                            <constraint firstItem="Myy-C3-3k3" firstAttribute="centerY" secondItem="BdN-ZE-y2e" secondAttribute="centerY" id="QKj-wx-rHa"/>
+                            <constraint firstItem="QnC-er-KgN" firstAttribute="leading" secondItem="1Mc-9k-6JT" secondAttribute="leadingMargin" id="UYR-j9-Khg"/>
+                            <constraint firstItem="goK-ge-mSp" firstAttribute="top" secondItem="0Ga-36-hWe" secondAttribute="bottom" constant="54" id="VQV-hJ-PG2"/>
+                            <constraint firstItem="Myy-C3-3k3" firstAttribute="leading" secondItem="1Mc-9k-6JT" secondAttribute="leading" id="XFB-YU-dwB"/>
+                            <constraint firstItem="QnC-er-KgN" firstAttribute="trailing" secondItem="0Ga-36-hWe" secondAttribute="trailing" id="ot1-fT-cKK"/>
+                            <constraint firstItem="BdN-ZE-y2e" firstAttribute="trailing" secondItem="1Mc-9k-6JT" secondAttribute="trailingMargin" id="x6h-Ot-xKD"/>
+                            <constraint firstItem="BdN-ZE-y2e" firstAttribute="trailing" secondItem="QnC-er-KgN" secondAttribute="trailing" id="yZH-EA-WYH"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Memories" image="pictures" id="a7e-82-7vX"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="0Ga-36-hWe" id="y0F-dN-nqG"/>
-                        <outlet property="locationLabel" destination="ctq-M9-AGZ" id="H7m-iL-h9B"/>
-                        <outlet property="tempLabel" destination="1w4-Lp-nE2" id="N3R-aX-Nof"/>
-                        <outlet property="weatherImage" destination="fWQ-rc-F0l" id="eUq-Og-7dF"/>
+                        <outlet property="panicButton" destination="BdN-ZE-y2e" id="NaN-ny-zOt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5DT-cq-lmj" sceneMemberID="firstResponder"/>
@@ -573,10 +553,246 @@
     </scenes>
     <resources>
         <image name="blankPhoto" width="640" height="480"/>
+        <image name="button:BdN-ZE-y2e:image" width="50" height="50">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
+GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
+DBIAwAAAgAKACtISCRMVWk5TLm9iamVjdHOhFIADgAnSEgkXGqIYGYAEgAWACBAA0h0JHh9fEBROU1RJ
+RkZSZXByZXNlbnRhdGlvboAGgAdPETQeTU0AKgAAJxgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAA////A////1f///+Y////y/////L////L////mP///1f///8DAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///yL////H////////////////////////////////
+/////////8f///8iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8g////6v/////////g
+////bf///zT///8N////NP///23////g/////////+r///8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+////Av///8X/////////uP///wwAAAAAAAAAAAAAAAAAAAAAAAAAAP///wz///+5/////////8X///8C
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD///9Y/////////+P///8QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAP///xD////j/////////1gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///7v/////////ZwAAAAAAAAAA
+////Iv///6D////h////nf///x8AAAAAAAAAAP///2f/////////uwAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+////8f////////8YAAAAAAAAAAD///+/////////////////////uQAAAAAAAAAA////GP/////////x
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAP///wL//////////////wEAAAAAAAAAAP/////////////////////////9
+AAAAAAAAAAD///8B//////////////8CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////Af////f/////////HAAAAAAAAAAA
+//////////////////////////8AAAAAAAAAAP///xz/////////9////wEAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+////xP////////9pAAAAAAAAAAD//////////////////////////wAAAAAAAAAA////af/////////E
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD///9e/////////98AAAAAAAAAAP//////////////////////////
+AAAAAAAAAAD////f/////////14AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///wP////C/////wAAAAAAAAAA
+//////////////////////////8AAAAAAAAAAP/////////C////AwAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAP///xn////fAAAAAAAAAAD//////////////////////////wAAAAAAAAAA////3////xkAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///yEAAAAAAAAAAP//////////////////////////
+AAAAAAAAAAD///8hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD//////////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//////////////////////////
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//////////////////////////8AAAAAAAAAAP///xf///+K////4v///4r///8XAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD//////////////////////////wAAAAAAAAAA////t///////////
+/////////7cAAAAAAAAAAP///x3///+P////5P///5n///8mAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//////////////////////////
+AAAAAAAAAAD////8////////////////////+wAAAAAAAAAA////vf///////////////////8cAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//////////////////////////8AAAAAAAAAAP/////////////////////////9AAAAAAAAAAD////8
+/////////////////////gAAAAAAAAAA////Iv///5X////l////mP///yQAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD//////////////////////////wAAAAAAAAAA////////////////
+//////////oAAAAAAAAAAP//////////////////////////AAAAAAAAAAD///+7////////////////
+////wgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//////////////////////////
+AAAAAAAAAAD/////////////////////////+AAAAAAAAAAA//////////////////////////8AAAAA
+AAAAAP////X////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//////////////////////////////+A////f///////////////////////////////fP///3//////
+/////////////////////wAAAAAAAAAA////9/////////////////////8AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD/////////////////////////////////////////////////////
+////////////////////////////////////////////////AAAAAAAAAAD////3////////////////
+/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8x
+////l////+T///+X////MQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//////////////////////////
+//////////////////////////////////////////////////////////////////////////////+D
+////eP//////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAA////S///////////////////////////////cAAAAAAAAAAAAAAAAAAAAAAAAAAA
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD////P////////////////////////////////
+////cAAAAAAAAAAAAAAAAAAAAAD/////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////v/////
+////////////////////////////////////cAAAAAAAAAAAAAAAAP//////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAA////z///////////////////////////////////////////////cAAAAAAAAAAA
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///9L/////v//////////////////////////
+////////////////////cAAAAAD/////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///9x
+////////////////////////////////////////////////////cP//////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD///9y////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///90////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAD///91////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///92////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///94
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD///95////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///96////////////////
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////+0AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAD///98////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////swAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///99////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////9SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///9/
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////xv///wIAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAD///9z/////v//////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////H///8m
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///9K////6f//////////
+////////////////////////////////////////////////////////////////////////////////
+///////////////3////RwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAD///8V////kf////j/////////////////////////////////////////////////////
+////////////////////////////////////wf///yoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////F////27///+g////yv////L/////
+/////////////////////////////////////////+f///+3////h////0X///8BAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAA4BAAADAAAAAQAyAAABAQADAAAAAQAyAAABAgADAAAABAAAJ8YBAwADAAAAAQAB
+AAABBgADAAAAAQACAAABEQAEAAAAAQAAAAgBEgADAAAAAQABAAABFQADAAAAAQAEAAABFgADAAAAAQAy
+AAABFwAEAAAAAQAAJxABHAADAAAAAQABAAABUgADAAAAAQACAAABUwADAAAABAAAJ86HcwAHAAAMSAAA
+J9YAAAAAAAgACAAIAAgAAQABAAEAAQAADEhMaW5vAhAAAG1udHJSR0IgWFlaIAfOAAIACQAGADEAAGFj
+c3BNU0ZUAAAAAElFQyBzUkdCAAAAAAAAAAAAAAAAAAD21gABAAAAANMtSFAgIAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEWNwcnQAAAFQAAAAM2Rlc2MAAAGEAAAAbHd0
+cHQAAAHwAAAAFGJrcHQAAAIEAAAAFHJYWVoAAAIYAAAAFGdYWVoAAAIsAAAAFGJYWVoAAAJAAAAAFGRt
+bmQAAAJUAAAAcGRtZGQAAALEAAAAiHZ1ZWQAAANMAAAAhnZpZXcAAAPUAAAAJGx1bWkAAAP4AAAAFG1l
+YXMAAAQMAAAAJHRlY2gAAAQwAAAADHJUUkMAAAQ8AAAIDGdUUkMAAAQ8AAAIDGJUUkMAAAQ8AAAIDHRl
+eHQAAAAAQ29weXJpZ2h0IChjKSAxOTk4IEhld2xldHQtUGFja2FyZCBDb21wYW55AABkZXNjAAAAAAAA
+ABJzUkdCIElFQzYxOTY2LTIuMQAAAAAAAAAAAAAAEnNSR0IgSUVDNjE5NjYtMi4xAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYWVogAAAAAAAA81EAAQAAAAEWzFhZ
+WiAAAAAAAAAAAAAAAAAAAAAAWFlaIAAAAAAAAG+iAAA49QAAA5BYWVogAAAAAAAAYpkAALeFAAAY2lhZ
+WiAAAAAAAAAkoAAAD4QAALbPZGVzYwAAAAAAAAAWSUVDIGh0dHA6Ly93d3cuaWVjLmNoAAAAAAAAAAAA
+AAAWSUVDIGh0dHA6Ly93d3cuaWVjLmNoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAGRlc2MAAAAAAAAALklFQyA2MTk2Ni0yLjEgRGVmYXVsdCBSR0IgY29sb3VyIHNwYWNl
+IC0gc1JHQgAAAAAAAAAAAAAALklFQyA2MTk2Ni0yLjEgRGVmYXVsdCBSR0IgY29sb3VyIHNwYWNlIC0g
+c1JHQgAAAAAAAAAAAAAAAAAAAAAAAAAAAABkZXNjAAAAAAAAACxSZWZlcmVuY2UgVmlld2luZyBDb25k
+aXRpb24gaW4gSUVDNjE5NjYtMi4xAAAAAAAAAAAAAAAsUmVmZXJlbmNlIFZpZXdpbmcgQ29uZGl0aW9u
+IGluIElFQzYxOTY2LTIuMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdmlldwAAAAAAE6T+ABRfLgAQ
+zxQAA+3MAAQTCwADXJ4AAAABWFlaIAAAAAAATAlWAFAAAABXH+dtZWFzAAAAAAAAAAEAAAAAAAAAAAAA
+AAAAAAAAAAACjwAAAAJzaWcgAAAAAENSVCBjdXJ2AAAAAAAABAAAAAAFAAoADwAUABkAHgAjACgALQAy
+ADcAOwBAAEUASgBPAFQAWQBeAGMAaABtAHIAdwB8AIEAhgCLAJAAlQCaAJ8ApACpAK4AsgC3ALwAwQDG
+AMsA0ADVANsA4ADlAOsA8AD2APsBAQEHAQ0BEwEZAR8BJQErATIBOAE+AUUBTAFSAVkBYAFnAW4BdQF8
+AYMBiwGSAZoBoQGpAbEBuQHBAckB0QHZAeEB6QHyAfoCAwIMAhQCHQImAi8COAJBAksCVAJdAmcCcQJ6
+AoQCjgKYAqICrAK2AsECywLVAuAC6wL1AwADCwMWAyEDLQM4A0MDTwNaA2YDcgN+A4oDlgOiA64DugPH
+A9MD4APsA/kEBgQTBCAELQQ7BEgEVQRjBHEEfgSMBJoEqAS2BMQE0wThBPAE/gUNBRwFKwU6BUkFWAVn
+BXcFhgWWBaYFtQXFBdUF5QX2BgYGFgYnBjcGSAZZBmoGewaMBp0GrwbABtEG4wb1BwcHGQcrBz0HTwdh
+B3QHhgeZB6wHvwfSB+UH+AgLCB8IMghGCFoIbgiCCJYIqgi+CNII5wj7CRAJJQk6CU8JZAl5CY8JpAm6
+Cc8J5Qn7ChEKJwo9ClQKagqBCpgKrgrFCtwK8wsLCyILOQtRC2kLgAuYC7ALyAvhC/kMEgwqDEMMXAx1
+DI4MpwzADNkM8w0NDSYNQA1aDXQNjg2pDcMN3g34DhMOLg5JDmQOfw6bDrYO0g7uDwkPJQ9BD14Peg+W
+D7MPzw/sEAkQJhBDEGEQfhCbELkQ1xD1ERMRMRFPEW0RjBGqEckR6BIHEiYSRRJkEoQSoxLDEuMTAxMj
+E0MTYxODE6QTxRPlFAYUJxRJFGoUixStFM4U8BUSFTQVVhV4FZsVvRXgFgMWJhZJFmwWjxayFtYW+hcd
+F0EXZReJF64X0hf3GBsYQBhlGIoYrxjVGPoZIBlFGWsZkRm3Gd0aBBoqGlEadxqeGsUa7BsUGzsbYxuK
+G7Ib2hwCHCocUhx7HKMczBz1HR4dRx1wHZkdwx3sHhYeQB5qHpQevh7pHxMfPh9pH5Qfvx/qIBUgQSBs
+IJggxCDwIRwhSCF1IaEhziH7IiciVSKCIq8i3SMKIzgjZiOUI8Ij8CQfJE0kfCSrJNolCSU4JWgllyXH
+JfcmJyZXJocmtyboJxgnSSd6J6sn3CgNKD8ocSiiKNQpBik4KWspnSnQKgIqNSpoKpsqzysCKzYraSud
+K9EsBSw5LG4soizXLQwtQS12Last4S4WLkwugi63Lu4vJC9aL5Evxy/+MDUwbDCkMNsxEjFKMYIxujHy
+MioyYzKbMtQzDTNGM38zuDPxNCs0ZTSeNNg1EzVNNYc1wjX9Njc2cjauNuk3JDdgN5w31zgUOFA4jDjI
+OQU5Qjl/Obw5+To2OnQ6sjrvOy07azuqO+g8JzxlPKQ84z0iPWE9oT3gPiA+YD6gPuA/IT9hP6I/4kAj
+QGRApkDnQSlBakGsQe5CMEJyQrVC90M6Q31DwEQDREdEikTORRJFVUWaRd5GIkZnRqtG8Ec1R3tHwEgF
+SEtIkUjXSR1JY0mpSfBKN0p9SsRLDEtTS5pL4kwqTHJMuk0CTUpNk03cTiVObk63TwBPSU+TT91QJ1Bx
+ULtRBlFQUZtR5lIxUnxSx1MTU19TqlP2VEJUj1TbVShVdVXCVg9WXFapVvdXRFeSV+BYL1h9WMtZGllp
+WbhaB1pWWqZa9VtFW5Vb5Vw1XIZc1l0nXXhdyV4aXmxevV8PX2Ffs2AFYFdgqmD8YU9homH1YklinGLw
+Y0Njl2PrZEBklGTpZT1lkmXnZj1mkmboZz1nk2fpaD9olmjsaUNpmmnxakhqn2r3a09rp2v/bFdsr20I
+bWBtuW4SbmtuxG8eb3hv0XArcIZw4HE6cZVx8HJLcqZzAXNdc7h0FHRwdMx1KHWFdeF2Pnabdvh3Vnez
+eBF4bnjMeSp5iXnnekZ6pXsEe2N7wnwhfIF84X1BfaF+AX5ifsJ/I3+Ef+WAR4CogQqBa4HNgjCCkoL0
+g1eDuoQdhICE44VHhauGDoZyhteHO4efiASIaYjOiTOJmYn+imSKyoswi5aL/IxjjMqNMY2Yjf+OZo7O
+jzaPnpAGkG6Q1pE/kaiSEZJ6kuOTTZO2lCCUipT0lV+VyZY0lp+XCpd1l+CYTJi4mSSZkJn8mmia1ZtC
+m6+cHJyJnPedZJ3SnkCerp8dn4uf+qBpoNihR6G2oiailqMGo3aj5qRWpMelOKWpphqmi6b9p26n4KhS
+qMSpN6mpqhyqj6sCq3Wr6axcrNCtRK24ri2uoa8Wr4uwALB1sOqxYLHWskuywrM4s660JbSctRO1irYB
+tnm28Ldot+C4WbjRuUq5wro7urW7LrunvCG8m70VvY++Cr6Evv+/er/1wHDA7MFnwePCX8Lbw1jD1MRR
+xM7FS8XIxkbGw8dBx7/IPci8yTrJuco4yrfLNsu2zDXMtc01zbXONs62zzfPuNA50LrRPNG+0j/SwdNE
+08bUSdTL1U7V0dZV1tjXXNfg2GTY6Nls2fHadtr724DcBdyK3RDdlt4c3qLfKd+v4DbgveFE4cziU+Lb
+42Pj6+Rz5PzlhOYN5pbnH+ep6DLovOlG6dDqW+rl63Dr++yG7RHtnO4o7rTvQO/M8Fjw5fFy8f/yjPMZ
+86f0NPTC9VD13vZt9vv3ivgZ+Kj5OPnH+lf65/t3/Af8mP0p/br+S/7c/23//9IiIyQlWiRjbGFzc25h
+bWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoyQmJ1pOU0ltYWdlUmVwWE5TT2JqZWN00iIjKSpX
+TlNBcnJheaIpJ9IiIywtXk5TTXV0YWJsZUFycmF5oywpJ9MvMAkxMjNXTlNXaGl0ZVxOU0NvbG9yU3Bh
+Y2VEMCAwABADgAvSIiM1NldOU0NvbG9yojUn0iIjODlXTlNJbWFnZaI4J18QD05TS2V5ZWRBcmNoaXZl
+ctE8PVRyb290gAEACAARABoAIwAtADIANwBFAEsAVABbAGgAbwB3AHkAfgCAAIIAhwCSAJQAlgCYAJ0A
+oACiAKQApgCoAK0AxADGAMg06jTvNPo1AzUWNRo1JTUuNTM1OzU+NUM1UjVWNV01ZTVyNXc1eTV7NYA1
+iDWLNZA1mDWbNa01sDW1AAAAAAAAAgEAAAAAAAAAPgAAAAAAAAAAAAAAAAAANbc
+</mutableData>
+        </image>
         <image name="calmimage" width="183" height="276"/>
         <image name="do" width="48" height="48"/>
         <image name="evoke" width="32" height="32"/>
-        <image name="imageView:8zS-gG-pLO:image" width="1024" height="683">
+        <image name="imageView:CDV-di-6hm:image" width="1024" height="683">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -12328,7 +12544,6 @@ sQAKv7YACr++AAq/wQAKv9MACr/WAAq/2wAAAAAAAAQBAAAAAAAAAD4AAAAAAAAAAAAAAAAACr/dA
         </image>
         <image name="lightgreytexturedbackground" width="550" height="250"/>
         <image name="marker" width="100" height="100"/>
-        <image name="panicButtonNew" width="207" height="205"/>
         <image name="phonecallgreen" width="100" height="100"/>
         <image name="pictures" width="32" height="32"/>
         <image name="qrcode" width="26" height="26"/>
