@@ -365,5 +365,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager.stopMonitoring(for: geofence)
         }
     }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        if shortcutItem.type == "sos"
+        {
+            
+            let rootNavigationViewController = window!.rootViewController as? UITabBarController
+            rootNavigationViewController?.selectedIndex = 1
+            
+            let vc = rootNavigationViewController?.viewControllers?[0] as! PhotoViewController
+            
+            
+            vc.performSegue(withIdentifier: "helpOnTheWaySegue", sender: nil)
+        }
+        if shortcutItem.type == "qr"
+        {
+            let rootNavigationViewController = window!.rootViewController as? UITabBarController
+            rootNavigationViewController?.selectedIndex = 1
+            
+            let vc = rootNavigationViewController?.viewControllers?[0] as! PhotoViewController
+            
+            
+            vc.performSegue(withIdentifier: "showQRSegue", sender: nil)
+            
+        }
+    }
 }
 

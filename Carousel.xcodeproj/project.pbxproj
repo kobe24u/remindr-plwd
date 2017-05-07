@@ -16,7 +16,7 @@
 		BF276F051EAB516C006E5EAC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF276F031EAB516C006E5EAC /* MainInterface.storyboard */; };
 		BF276F091EAB516C006E5EAC /* NotificationContent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF276EFB1EAB516C006E5EAC /* NotificationContent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF2F436D1EBDD1960082D24E /* qr.png in Resources */ = {isa = PBXBuildFile; fileRef = BF2F436C1EBDD1960082D24E /* qr.png */; };
-		BF2F43751EBDD2F90082D24E /* sos.png in Resources */ = {isa = PBXBuildFile; fileRef = BF2F43741EBDD2F90082D24E /* sos.png */; };
+		BF2F43771EBDD77E0082D24E /* sos.png in Resources */ = {isa = PBXBuildFile; fileRef = BF2F43761EBDD77E0082D24E /* sos.png */; };
 		BF6C3C7D1E8739C900DA9297 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */; };
 		BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6C3C801E8739C900DA9297 /* Main.storyboard */; };
 		BF6C3C851E8739C900DA9297 /* Carousel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C831E8739C900DA9297 /* Carousel.xcdatamodeld */; };
@@ -110,7 +110,7 @@
 		BF276F041EAB516C006E5EAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		BF276F061EAB516C006E5EAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF2F436C1EBDD1960082D24E /* qr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qr.png; sourceTree = "<group>"; };
-		BF2F43741EBDD2F90082D24E /* sos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sos.png; sourceTree = "<group>"; };
+		BF2F43761EBDD77E0082D24E /* sos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sos.png; sourceTree = "<group>"; };
 		BF6C3C791E8739C900DA9297 /* Carousel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carousel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF6C3C811E8739C900DA9297 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 		BF6C3C7B1E8739C900DA9297 /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
-				BF2F43741EBDD2F90082D24E /* sos.png */,
+				BF2F43761EBDD77E0082D24E /* sos.png */,
 				BF2F436C1EBDD1960082D24E /* qr.png */,
 				F8DC75F71EBD5C5E00983773 /* QRCode */,
 				BF9546231EBAF3A900806C8B /* Sounds */,
@@ -583,9 +583,9 @@
 				F89E57321EBD5EA6006FA69D /* data.plist in Resources */,
 				BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */,
 				F87447451E9A2CCF009713AC /* patientLeftIcon.png in Resources */,
+				BF2F43771EBDD77E0082D24E /* sos.png in Resources */,
 				BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */,
 				BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */,
-				BF2F43751EBDD2F90082D24E /* sos.png in Resources */,
 				BF9546271EBAF3D200806C8B /* reminderSound.m4a in Resources */,
 				F85925881EACAAE400609D2F /* GoogleService-Info.plist in Resources */,
 				BF95462B1EBAF41800806C8B /* reminderNotification.png in Resources */,

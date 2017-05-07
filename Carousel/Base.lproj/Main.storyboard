@@ -403,7 +403,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="qrcode"/>
                                 <connections>
-                                    <segue destination="wCL-hC-9Kk" kind="show" id="eBY-US-QdH"/>
+                                    <segue destination="wCL-hC-9Kk" kind="show" identifier="showQRSegue" id="eBY-US-QdH"/>
                                 </connections>
                             </button>
                         </subviews>
