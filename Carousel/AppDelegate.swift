@@ -264,6 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         
+        self.ref?.child("users").child(GlobalVariables.deviceUUID).child("username").setValue(GlobalVariables.deviceUUID)
         self.ref?.child("users").child(GlobalVariables.deviceUUID).child("patLat").setValue(String(locValue.latitude))
         self.ref?.child("users").child(GlobalVariables.deviceUUID).child("patLng").setValue(String(locValue.longitude))
         //self.ref?.child("users/testpatient/patLat").setValue(String(locValue.latitude))
