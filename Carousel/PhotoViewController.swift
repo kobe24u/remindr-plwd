@@ -19,12 +19,12 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var weatherImage: UIImageView!
+
+    @IBOutlet weak var panicButton: UIButton!
     
-    @IBOutlet weak var tempLabel: UILabel!
+
     
-    
-    @IBOutlet weak var locationLabel: UILabel!
+
     
     var newEvent: PanicEvent? = nil
     
@@ -33,6 +33,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     let picker = UIImagePickerController()
     var chosenPhoto: UIImage?
     var weather = WeatherModel()
+    var reminderid: String?
+    var oopsFlag: Bool?
     
     //    var photoList: NSMutableArray
     var ref: FIRDatabaseReference!
@@ -49,6 +51,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     override  func viewDidLoad() {
         super.viewDidLoad()
         
+        self.panicButton.layer.cornerRadius = 10
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         
@@ -57,9 +60,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         ref = FIRDatabase.database().reference()
         //        retrieveDataFromFirebase()
         
-        weather.downloadData {
-            self.updateWeatherUI()
-        }
+        
         let screenSize = UIScreen.main.bounds.size
         let cellWidth = floor(screenSize.width * cellScaling)
         let cellHeight = floor(screenSize.height * cellScaling)
@@ -102,11 +103,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         self.collectionView.isScrollEnabled = true
     }
     
-    func updateWeatherUI() {
-        tempLabel.text = "\(weather.temp)"
-        locationLabel.text = "\(weather.location)"
-        weatherImage.image = UIImage(named: weather.weather)
-    }
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,7 +118,34 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         case UNNotificationDefaultActionIdentifier:
             print("Default")
         case "Snooze":
-            print("Snooze")
+            print("The patient click the will do it button, we will change the reminder's completed setting to completed and upload to the server")
+            
+            let ref = FIRDatabase.database().reference().child("reminders").child(AppDelegate.GlobalVariables.deviceUUID)
+//            let ref = FIRDatabase.database().reference().child("reminders").child("testpatient")
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                
+                for current in snapshot.children.allObjects as! [FIRDataSnapshot]
+                {
+                    let value = current.value as? NSDictionary
+                    let id = value?["id"] as? String ?? ""
+                    
+                    if self.reminderid == id
+                    {
+                        ref.child("\(id)").child("completed").setValue("Yes")
+                        
+                        return
+                    }
+                }
+                
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
+            
+            
+            
         case "UYLDeleteAction":
             print("Delete")
         default:
@@ -147,6 +171,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
             for current in snapshot.children.allObjects as! [FIRDataSnapshot]
             {
                 let value = current.value as? NSDictionary
+//                self.reminderid = value?["id"] as? String ?? ""
+//                print(self.reminderid!)
                 let message = value?["message"] as? String ?? ""
                 let time = value?["time"]
                 let audioURL = value?["audioURL"] as? String ?? ""
@@ -161,6 +187,8 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                 }
                 else{
                     print(date)
+                    
+                    self.reminderid = value?["id"] as? String ?? ""
                     
                     var audioFileName: String?
                     if let audioUrl = URL(string: audioURL) {
@@ -197,122 +225,197 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                     }
                     
                     
-                    
                     if UIApplication.shared.applicationState == .active {
-                        
-                        
-                        let mes = message
-                        let timer = Timer(fireAt: date!, interval: 0, target: self, selector: #selector(PhotoViewController.displayAlert(timer:)), userInfo: mes, repeats: false)
-                        RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
-                        // App is active, show an alert
-                        //                        let notification = UILocalNotification()
-                        //                        notification.alertTitle = "New Reminder Attention"
-                        //                        notification.alertBody = "\(message)"
-                        //                        notification.fireDate = date
-                        //                        notification.soundName = UILocalNotificationDefaultSoundName
-                        //                        UIApplication.shared.scheduleLocalNotification(notification)
-                        
-                        let snoozeAction = UNNotificationAction(identifier: "Snooze",
-                                                                title: "Will do it", options: [])
-                        let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
-                                                                title: "Ignore", options: [.destructive])
-                        let actionsArray = NSArray(objects: snoozeAction, deleteAction)
-                        
-                        let category = UNNotificationCategory(identifier: "UYLReminderCategory",
-                                                              actions: actionsArray as! [UNNotificationAction],
-                                                              intentIdentifiers: [], options: [])
-                        
-                        
-                        let content = UNMutableNotificationContent()
-                        content.title = "Hi!"
-                        content.subtitle = "You have a new reminder, please check"
-                        content.body = "\(message)"
-                        content.categoryIdentifier = "UYLReminderCategory"
-                        content.userInfo = ["Type": "timerDone"]
-                        //        content.badge = 1
-                        print(audioFileName)
-                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
-                        
-                        guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
-                        let url = URL(fileURLWithPath: path)
-                        do {
-                            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
-                            content.attachments = [attachment]
-                        }
-                        catch {
-                            print ("error occurred")
-                        }
-                        
-                        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date!)
-                        
-                        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-                        
-                        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
-                        
-                        
-                        
-                        UNUserNotificationCenter.current().setNotificationCategories([category])
-                        
-                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-                        
-                        
-                        
-                        
-                        
-                        //self.present(alertController, animated: true, completion: nil)
-                    } else {
-                        
-                        let snoozeAction = UNNotificationAction(identifier: "Snooze",
-                                                                title: "Will do it", options: [])
-                        let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
-                                                                title: "Snooze", options: [.destructive])
-                        let actionsArray = NSArray(objects: snoozeAction, deleteAction)
-                        
-                        let category = UNNotificationCategory(identifier: "UYLReminderCategory",
-                                                              actions: actionsArray as! [UNNotificationAction],
-                                                              intentIdentifiers: [], options: [])
-                        
-                        let content = UNMutableNotificationContent()
-                        content.title = "Hi!"
-                        content.subtitle = "You have a new reminder, please check"
-                        content.body = "\(message)"
-                        //        content.badge = 1
-                        content.categoryIdentifier = "UYLReminderCategory"
-                        content.userInfo = ["Type": "timerDone"]
-                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
-                        
-                        guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
-                        let url = URL(fileURLWithPath: path)
-                        do {
-                            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
-                            content.attachments = [attachment]
-                        }
-                        catch {
-                            print ("error occurred")
-                        }
-                        
-                        
-                        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date!)
-                        
-                        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-                        
-                        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
-                        
-                        
-                        
-                        UNUserNotificationCenter.current().setNotificationCategories([category])
-                        
-                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-                        
-                        
-                        
+                        // alert 
+                        self.displayAlertMessage(title: "You have a new reminder", message: message)
                         
                     }
+                    else
+                    {
+                        if #available(iOS 10.0, *) {
+                            // NSMutable notification
+                            let mes = message
+                            let timer = Timer(fireAt: date!, interval: 0, target: self, selector: #selector(PhotoViewController.displayAlert(timer:)), userInfo: mes, repeats: false)
+                            RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
+                            // App is active, show an alert
+                            
+                            let snoozeAction = UNNotificationAction(identifier: "Snooze",
+                                                                    title: "Will do it", options: [])
+                            let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
+                                                                    title: "Ignore", options: [.destructive])
+                            let actionsArray = NSArray(objects: snoozeAction, deleteAction)
+                            
+                            let category = UNNotificationCategory(identifier: "UYLReminderCategory",
+                                                                  actions: actionsArray as! [UNNotificationAction],
+                                                                  intentIdentifiers: [], options: [])
+                            
+                            
+                            let content = UNMutableNotificationContent()
+                            content.title = "New reminder"
+                            content.subtitle = "Force click or drag for interactions"
+                            content.body = "\(message.uppercased())"
+                            content.categoryIdentifier = "UYLReminderCategory"
+                            content.userInfo = ["Type": "timerDone"]
+                            //        content.badge = 1
+                            print(audioFileName)
+                            content.sound = UNNotificationSound.default()
+                            //                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
+                            
+                            guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
+                            let url = URL(fileURLWithPath: path)
+                            do {
+                                let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+                                content.attachments = [attachment]
+                            }
+                            catch {
+                                print ("error occurred")
+                            }
+                            
+                            let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date!)
+                            
+                            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                            
+                            let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+                            
+                            
+                            
+                            UNUserNotificationCenter.current().setNotificationCategories([category])
+                            
+                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        }
+                        else
+                        {
+                            // local notification
+                            let notification = UILocalNotification()
+                            notification.alertTitle = "You have a new reminder"
+                            notification.alertBody = "\(message.uppercased())"
+                            notification.fireDate = date
+                            notification.soundName = UILocalNotificationDefaultSoundName
+                            UIApplication.shared.scheduleLocalNotification(notification)
+                        }
+                    }
+                    
+                    
+//                    if UIApplication.shared.applicationState == .active {
+//                        
+//                        
+//                        let mes = message
+//                        let timer = Timer(fireAt: date!, interval: 0, target: self, selector: #selector(PhotoViewController.displayAlert(timer:)), userInfo: mes, repeats: false)
+//                        RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
+//                        // App is active, show an alert
+//                        
+//                        let snoozeAction = UNNotificationAction(identifier: "Snooze",
+//                                                                title: "Will do it", options: [])
+//                        let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
+//                                                                title: "Ignore", options: [.destructive])
+//                        let actionsArray = NSArray(objects: snoozeAction, deleteAction)
+//                        
+//                        let category = UNNotificationCategory(identifier: "UYLReminderCategory",
+//                                                              actions: actionsArray as! [UNNotificationAction],
+//                                                              intentIdentifiers: [], options: [])
+//                        
+//                        
+//                        let content = UNMutableNotificationContent()
+//                        content.title = "New reminder"
+//                        content.subtitle = "Force click or drag for interactions"
+//                        content.body = "\(message.uppercased())"
+//                        content.categoryIdentifier = "UYLReminderCategory"
+//                        content.userInfo = ["Type": "timerDone"]
+//                        //        content.badge = 1
+//                        print(audioFileName)
+//                        content.sound = UNNotificationSound.default()
+////                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
+//                        
+//                        guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
+//                        let url = URL(fileURLWithPath: path)
+//                        do {
+//                            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+//                            content.attachments = [attachment]
+//                        }
+//                        catch {
+//                            print ("error occurred")
+//                        }
+//                        
+//                        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date!)
+//                        
+//                        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+//                        
+//                        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+//                        
+//                        
+//                        
+//                        UNUserNotificationCenter.current().setNotificationCategories([category])
+//                        
+//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//                        
+//                        
+//                        
+//                        
+//                        
+//                        //self.present(alertController, animated: true, completion: nil)
+//                    } else {
+//                        
+//                        let snoozeAction = UNNotificationAction(identifier: "Snooze",
+//                                                                title: "Will do it", options: [])
+//                        let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
+//                                                                title: "Snooze", options: [.destructive])
+//                        let actionsArray = NSArray(objects: snoozeAction, deleteAction)
+//                        
+//                        let category = UNNotificationCategory(identifier: "UYLReminderCategory",
+//                                                              actions: actionsArray as! [UNNotificationAction],
+//                                                              intentIdentifiers: [], options: [])
+//                        
+//                        let content = UNMutableNotificationContent()
+//                        content.title = "New reminder"
+//                        content.subtitle = "Force click or drag for interactions"
+//                        content.body = "\(message.uppercased())"
+//                        //        content.badge = 1
+//                        content.categoryIdentifier = "UYLReminderCategory"
+//                        content.userInfo = ["Type": "timerDone"]
+//                        content.sound = UNNotificationSound.default()
+////                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
+//                        
+//                        guard let path = Bundle.main.path(forResource: "reminderNotification", ofType: "png") else {return}
+//                        let url = URL(fileURLWithPath: path)
+//                        do {
+//                            let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+//                            content.attachments = [attachment]
+//                        }
+//                        catch {
+//                            print ("error occurred")
+//                        }
+//                        
+//                        
+//                        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date!)
+//                        
+//                        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+//                        
+//                        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+//                        
+//                        
+//                        
+//                        UNUserNotificationCenter.current().setNotificationCategories([category])
+//                        
+//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+////                        
+////                                                let notification = UILocalNotification()
+////                                                notification.alertTitle = "\(message.uppercased())"
+////                                                notification.alertBody = "Use iPhone for more operations"
+////                        
+////                                                notification.fireDate = date
+////                                                notification.soundName = UILocalNotificationDefaultSoundName
+////                                                UIApplication.shared.scheduleLocalNotification(notification)
+//                        
+//                        
+//                        
+//                        
+//                    }
+//                }
+                
                 }
-                
-                
             }
             
             
@@ -372,10 +475,17 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         activityView.color = UIColor.black
         activityView.center = self.view.center
         self.view.addSubview(activityView)
+        
         activityView.startAnimating()
         
         ref.child("Photos").child(AppDelegate.GlobalVariables.deviceUUID).observe(.value, with: {(snapshot) in
         //ref.child("Photos/testpatient").observe(.value, with: {(snapshot) in
+            
+            var hasChildren: Bool = false
+            if snapshot.hasChildren()
+            {
+                hasChildren = true
+            }
             
             self.photos.removeAll()
             // code to execute when child is changed
@@ -407,7 +517,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                                                 
                                                 DispatchQueue.main.async( execute: {
                                                     
-                                                    self.collectionView.reloadData()
+//                                                    self.collectionView.reloadData()
                                                     activityView.stopAnimating()
                                                 })
                                                 print(self.photos.count)
@@ -415,9 +525,31 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                 }
             }
             self.collectionView.reloadData()
+            DispatchQueue.main.async( execute: {
+                activityView.stopAnimating()
+                if (self.photos.count == 0 && !hasChildren)
+                {
+                    self.promptMessage(title: "Oops", message: "No photos to display")
+                }
+                
+                
+            })
             
         })
         
+    }
+    
+    func promptMessage(title: String, message: String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        
+        // change to desired number of seconds (in this case 5 seconds)
+        let when = DispatchTime.now() + 4
+        DispatchQueue.main.asyncAfter(deadline: when){
+            // your code with delay
+            alert.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func didClickPanicButton(_ sender: Any) {
@@ -494,6 +626,14 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         {
             let destinationVC: HelpMessageViewController = segue.destination as! HelpMessageViewController
         }
+    }
+    
+    func displayAlertMessage(title: String, message: String)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

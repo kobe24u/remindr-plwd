@@ -15,6 +15,7 @@ class QRCodeGeneratorViewController: UIViewController {
     // for the QR code image (Core Image)
     var qrcodeImage: CIImage!
 
+    @IBOutlet var outerView: UIView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var qrCodeImageView: UIImageView!
     required init?(coder aDecoder: NSCoder) {
@@ -25,6 +26,9 @@ class QRCodeGeneratorViewController: UIViewController {
         super.viewDidLoad()
         
         doneButton.layer.cornerRadius = 5
+        // Allowing the patient to return to the main screen by clicking anywhere if the QR code buttom is clicked by mistake
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(QRCodeGeneratorViewController.goBackToMainScreen))
+        outerView.addGestureRecognizer(tap)
         
         // Reading the UUID of the device
         self.deviceUUID = UIDevice.current.identifierForVendor!.uuidString
@@ -38,7 +42,12 @@ class QRCodeGeneratorViewController: UIViewController {
         writingDataToPList()
         
     }
-
+    
+    func goBackToMainScreen() {
+        //self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -51,28 +51,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AV
         stopButton = UIButton(frame: CGRect(x: 40, y: 270, width: 150, height: 64))
         stopButton.isHidden = true
         
-        //        rerecordButton = UIButton(frame: CGRect(x: 40, y: 270, width: 150, height: 64))
-        //        rerecordButton.isHidden = true
-        //        recordingSession = AVAudioSession.sharedInstance()
-        //
-        //        do {
-        //            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-        //            try recordingSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-        //            try recordingSession.setActive(true)
-        //            recordingSession.requestRecordPermission() { [unowned self] allowed in
-        //                DispatchQueue.main.async {
-        //                    if allowed {
-        //                        self.loadRecordingUI()
-        //                    } else {
-        //                        // failed to record!
-        //                        print("failed to record")
-        //                    }
-        //                }
-        //            }
-        //        } catch {
-        //            // failed to record!
-        //            print("failed to record")
-        //        }
+        
     }
     
     var photo: Photo? {

@@ -15,6 +15,8 @@
 		BF276F021EAB516C006E5EAC /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF276F011EAB516C006E5EAC /* NotificationViewController.swift */; };
 		BF276F051EAB516C006E5EAC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF276F031EAB516C006E5EAC /* MainInterface.storyboard */; };
 		BF276F091EAB516C006E5EAC /* NotificationContent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF276EFB1EAB516C006E5EAC /* NotificationContent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BF2F436D1EBDD1960082D24E /* qr.png in Resources */ = {isa = PBXBuildFile; fileRef = BF2F436C1EBDD1960082D24E /* qr.png */; };
+		BF2F43771EBDD77E0082D24E /* sos.png in Resources */ = {isa = PBXBuildFile; fileRef = BF2F43761EBDD77E0082D24E /* sos.png */; };
 		BF6C3C7D1E8739C900DA9297 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */; };
 		BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6C3C801E8739C900DA9297 /* Main.storyboard */; };
 		BF6C3C851E8739C900DA9297 /* Carousel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF6C3C831E8739C900DA9297 /* Carousel.xcdatamodeld */; };
@@ -30,6 +32,7 @@
 		BF9546281EBAF3D200806C8B /* test2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BF9546251EBAF3D200806C8B /* test2.m4a */; };
 		BF9546291EBAF3D200806C8B /* testSound.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BF9546261EBAF3D200806C8B /* testSound.m4a */; };
 		BF95462B1EBAF41800806C8B /* reminderNotification.png in Resources */ = {isa = PBXBuildFile; fileRef = BF95462A1EBAF41800806C8B /* reminderNotification.png */; };
+		BFECE60F1EBF0C71004FDC92 /* applogo.png in Resources */ = {isa = PBXBuildFile; fileRef = BFECE60E1EBF0C71004FDC92 /* applogo.png */; };
 		F8019E981EA5F96E0058D4EE /* HelpMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8019E971EA5F96E0058D4EE /* HelpMessageViewController.swift */; };
 		F816D4A01E8C665900BF3995 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D49F1E8C665900BF3995 /* Reachability.swift */; };
 		F816D4A21E8C6DB900BF3995 /* FavouritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816D4A11E8C6DB900BF3995 /* FavouritesTableViewController.swift */; };
@@ -107,6 +110,8 @@
 		BF276F011EAB516C006E5EAC /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		BF276F041EAB516C006E5EAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		BF276F061EAB516C006E5EAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF2F436C1EBDD1960082D24E /* qr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qr.png; sourceTree = "<group>"; };
+		BF2F43761EBDD77E0082D24E /* sos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sos.png; sourceTree = "<group>"; };
 		BF6C3C791E8739C900DA9297 /* Carousel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carousel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6C3C7C1E8739C900DA9297 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF6C3C811E8739C900DA9297 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -133,6 +138,7 @@
 		BF9546251EBAF3D200806C8B /* test2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.m4a; sourceTree = "<group>"; };
 		BF9546261EBAF3D200806C8B /* testSound.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = testSound.m4a; sourceTree = "<group>"; };
 		BF95462A1EBAF41800806C8B /* reminderNotification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reminderNotification.png; sourceTree = "<group>"; };
+		BFECE60E1EBF0C71004FDC92 /* applogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = applogo.png; sourceTree = "<group>"; };
 		DFFE159709B1A007D920FA51 /* Pods_Carousel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carousel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8019E971EA5F96E0058D4EE /* HelpMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpMessageViewController.swift; sourceTree = "<group>"; };
 		F816D49F1E8C665900BF3995 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -252,6 +258,8 @@
 		BF6C3C7B1E8739C900DA9297 /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
+				BF2F43761EBDD77E0082D24E /* sos.png */,
+				BF2F436C1EBDD1960082D24E /* qr.png */,
 				F8DC75F71EBD5C5E00983773 /* QRCode */,
 				BF9546231EBAF3A900806C8B /* Sounds */,
 				F85288CA1E9B92CF00595E0A /* Other Screens */,
@@ -360,6 +368,7 @@
 			children = (
 				BF95462A1EBAF41800806C8B /* reminderNotification.png */,
 				F85925891EACAF6700609D2F /* husbandbill.png */,
+				BFECE60E1EBF0C71004FDC92 /* applogo.png */,
 				F87447421E9A2CCF009713AC /* patientBackIcon.png */,
 				F87447481E9A3509009713AC /* patientBackIcon New.png */,
 				F87447431E9A2CCF009713AC /* patientLeftIcon.png */,
@@ -570,17 +579,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				F87447441E9A2CCF009713AC /* patientBackIcon.png in Resources */,
+				BF2F436D1EBDD1960082D24E /* qr.png in Resources */,
 				F87447491E9A3509009713AC /* patientBackIcon New.png in Resources */,
 				F859258A1EACAF6700609D2F /* husbandbill.png in Resources */,
 				BF9546291EBAF3D200806C8B /* testSound.m4a in Resources */,
 				F89E57321EBD5EA6006FA69D /* data.plist in Resources */,
 				BF6C3C8A1E8739C900DA9297 /* LaunchScreen.storyboard in Resources */,
 				F87447451E9A2CCF009713AC /* patientLeftIcon.png in Resources */,
+				BF2F43771EBDD77E0082D24E /* sos.png in Resources */,
 				BF6C3C871E8739C900DA9297 /* Assets.xcassets in Resources */,
 				BF6C3C821E8739C900DA9297 /* Main.storyboard in Resources */,
 				BF9546271EBAF3D200806C8B /* reminderSound.m4a in Resources */,
 				F85925881EACAAE400609D2F /* GoogleService-Info.plist in Resources */,
 				BF95462B1EBAF41800806C8B /* reminderNotification.png in Resources */,
+				BFECE60F1EBF0C71004FDC92 /* applogo.png in Resources */,
 				BF9546281EBAF3D200806C8B /* test2.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

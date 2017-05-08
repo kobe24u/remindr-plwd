@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         content.sound = UNNotificationSound.default()
         //        content.sound = UNNotificationSound.init(named: "test2.m4a")
         
-        guard let path = Bundle.main.path(forResource: "husbandbill", ofType: "png") else {return}
+        guard let path = Bundle.main.path(forResource: "applogo", ofType: "png") else {return}
         let url = URL(fileURLWithPath: path)
         do {
             let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
@@ -204,7 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
             // Notify the user when they have entered a region
             let title = "Good Job!"
-            let message = "You're back inside your safe zone: \(region.identifier). Your caregiver will be notified."
+            let message = "You're back inside your safety zone. Your caregiver will be notified."
             
             self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("false")
             //self.ref?.child("geofencing/testpatient/violated").setValue("false")
@@ -236,7 +236,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("Exited region \(region.identifier)")
             // Notify the user when they have entered a region
             let title = "Beware"
-            let message = "You are leaving your safe zone: \(region.identifier). Your caregiver will be notified."
+            let message = "You are leaving your safety zone. Your caregiver will be notified."
             
             self.ref?.child("geofencing").child(GlobalVariables.deviceUUID).child("violated").setValue("true")
             //self.ref?.child("geofencing/testpatient/violated").setValue("true")
@@ -364,6 +364,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
             let geofence = CLCircularRegion(center: region.coordinate, radius:  CLLocationDistance(notificationRadius!), identifier: previousGeofence.locationName!)
             locationManager.stopMonitoring(for: geofence)
+        }
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        if shortcutItem.type == "sos"
+        {
+            
+            let rootNavigationViewController = window!.rootViewController as? UITabBarController
+            rootNavigationViewController?.selectedIndex = 1
+            
+            let vc = rootNavigationViewController?.viewControllers?[0] as! PhotoViewController
+            
+            
+            vc.performSegue(withIdentifier: "helpOnTheWaySegue", sender: nil)
+        }
+        if shortcutItem.type == "qr"
+        {
+            let rootNavigationViewController = window!.rootViewController as? UITabBarController
+            rootNavigationViewController?.selectedIndex = 1
+            
+            let vc = rootNavigationViewController?.viewControllers?[0] as! PhotoViewController
+            
+            
+            vc.performSegue(withIdentifier: "showQRSegue", sender: nil)
+            
         }
     }
 }
