@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     let locationManager = CLLocationManager()
     var ref: FIRDatabaseReference?
     var currentGeofence: Geofence? = nil
+    var badgeCount: Int = 0
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -219,12 +220,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             } else {
                 // App is inactive, show a notification
                 
+                badgeCount += 1
                 
-                let notification = UILocalNotification()
-                notification.alertTitle = title
-                notification.alertBody = message
-                notification.soundName = UILocalNotificationDefaultSoundName
-                UIApplication.shared.presentLocalNotificationNow(notification)
+                // App is inactive, show a notification
+                //let justInformAction = UNNotificationAction(identifier: "justInform", title: "Okay, got it", options: [.destructive, .authenticationRequired, .foreground])
+                let justInformAction = UNNotificationAction(identifier: "justInform", title: "Okay, got it", options: [])
+                let showPatientAction = UNNotificationAction(identifier: "showPatient", title: "Take me to the map", options: [.foreground, .destructive, .authenticationRequired] )
+                //let callPatientAction = UNNotificationAction(identifier: "callPatient", title: "Call my patient", options: [.destructive, .foreground, .authenticationRequired] )
+                
+                let actionsArray = NSArray(objects: justInformAction, showPatientAction) //, callPatientAction)
+                //let actionsArrayMinimal = NSArray(objects: showPatientAction, callPatientAction)
+                
+                let geofencingNotificationCategory = UNNotificationCategory(identifier: "geofencingNotificationCategory", actions: actionsArray as! [UNNotificationAction], intentIdentifiers: [], options: [])
+                
+                let content = UNMutableNotificationContent()
+                content.title = "\(title)"
+                content.body = "\(message)"
+                content.sound = UNNotificationSound.default()
+                content.badge = badgeCount as NSNumber
+//                content.categoryIdentifier = "geofencingNotificationCategory"
+                content.launchImageName = "home"
+                
+                guard let path = Bundle.main.path(forResource: "patientBackIcon New", ofType: "png") else { return }
+                let url = URL(fileURLWithPath: path)
+                
+                do {
+                    let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+                    content.attachments = [attachment]
+                }
+                catch
+                {
+                    print ("An error occurred while trying to attach an image to the notification")
+                }
+                
+                //
+                //        //let imagePath = URL(fileReferenceLiteralResourceName: "home")
+                //        let imagePath = URL(string: "https://firebasestorage.googleapis.com/v0/b/remindr-be120.appspot.com/o/pizza.jpg?alt=media&token=e5831bb2-eec7-4b1f-bdef-3f975cf0e7b5")
+                //        if let attachment =  try? UNNotificationAttachment(identifier: "notificationImage", url: imagePath!, options: nil) {
+                //            content.attachments.append(attachment)
+                //        }
+                //
+                
+                // Deliver the notification in five seconds.
+                let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
+                let request = UNNotificationRequest.init(identifier: "geofenceNotification", content: content, trigger: trigger)
+                
+                
+                // Schedule the notification.
+                let center = UNUserNotificationCenter.current()
+                center.setNotificationCategories([geofencingNotificationCategory])
+                center.removeAllPendingNotificationRequests()
+                
+                center.add(request, withCompletionHandler: {(error) in
+                    if let error = error {
+                        print("Uh oh! We had an error: \(error)")
+                    }
+                })
             }
             
         }
@@ -250,11 +301,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 //self.present(alertController, animated: true, completion: nil)
             } else {
                 // App is inactive, show a notification
-                let notification = UILocalNotification()
-                notification.alertTitle = title
-                notification.alertBody = message
-                notification.soundName = UILocalNotificationDefaultSoundName
-                UIApplication.shared.presentLocalNotificationNow(notification)
+                badgeCount += 1
+                
+                // App is inactive, show a notification
+                //let justInformAction = UNNotificationAction(identifier: "justInform", title: "Okay, got it", options: [.destructive, .authenticationRequired, .foreground])
+                let justInformAction = UNNotificationAction(identifier: "justInform", title: "Okay, got it", options: [])
+                let showPatientAction = UNNotificationAction(identifier: "showPatient", title: "Take me to the map", options: [.foreground, .destructive, .authenticationRequired] )
+                //let callPatientAction = UNNotificationAction(identifier: "callPatient", title: "Call my patient", options: [.destructive, .foreground, .authenticationRequired] )
+                
+                let actionsArray = NSArray(objects: justInformAction, showPatientAction) //, callPatientAction)
+                //let actionsArrayMinimal = NSArray(objects: showPatientAction, callPatientAction)
+                
+                let geofencingNotificationCategory = UNNotificationCategory(identifier: "geofencingNotificationCategory", actions: actionsArray as! [UNNotificationAction], intentIdentifiers: [], options: [])
+                
+                let content = UNMutableNotificationContent()
+                content.title = "\(title)"
+                content.body = "\(message)"
+                content.sound = UNNotificationSound.default()
+                content.badge = badgeCount as NSNumber
+                //                content.categoryIdentifier = "geofencingNotificationCategory"
+                content.launchImageName = "home"
+                
+                guard let path = Bundle.main.path(forResource: "patientLeftIcon", ofType: "png") else { return }
+                let url = URL(fileURLWithPath: path)
+                
+                do {
+                    let attachment = try UNNotificationAttachment(identifier: "notificationImage", url: url, options: nil)
+                    content.attachments = [attachment]
+                }
+                catch
+                {
+                    print ("An error occurred while trying to attach an image to the notification")
+                }
+                
+                //
+                //        //let imagePath = URL(fileReferenceLiteralResourceName: "home")
+                //        let imagePath = URL(string: "https://firebasestorage.googleapis.com/v0/b/remindr-be120.appspot.com/o/pizza.jpg?alt=media&token=e5831bb2-eec7-4b1f-bdef-3f975cf0e7b5")
+                //        if let attachment =  try? UNNotificationAttachment(identifier: "notificationImage", url: imagePath!, options: nil) {
+                //            content.attachments.append(attachment)
+                //        }
+                //
+                
+                // Deliver the notification in five seconds.
+                let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
+                let request = UNNotificationRequest.init(identifier: "geofenceNotification", content: content, trigger: trigger)
+                
+                
+                // Schedule the notification.
+                let center = UNUserNotificationCenter.current()
+                center.setNotificationCategories([geofencingNotificationCategory])
+                center.removeAllPendingNotificationRequests()
+                
+                center.add(request, withCompletionHandler: {(error) in
+                    if let error = error {
+                        print("Uh oh! We had an error: \(error)")
+                    }
+                })
             }
             
         }
