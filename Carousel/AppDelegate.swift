@@ -465,6 +465,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             // set geofencing only if the user has chosen to keep notifications on
             
             let geofence = CLCircularRegion(center: region.coordinate, radius:  CLLocationDistance(notificationRadius!), identifier: previousGeofence.locationName!)
+            print ("stopped monitoring \(geofence.identifier)")
             locationManager.stopMonitoring(for: geofence)
         }
     }
