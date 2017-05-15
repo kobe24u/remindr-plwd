@@ -58,7 +58,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         ref = FIRDatabase.database().reference()
-        //        retrieveDataFromFirebase()
+                retrieveDataFromFirebase()
         
         
         let screenSize = UIScreen.main.bounds.size
@@ -107,7 +107,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     
     
     override func viewWillAppear(_ animated: Bool) {
-        retrieveDataFromFirebase()
+        //retrieveDataFromFirebase()
         getCloudNotifications()
     }
     
@@ -227,7 +227,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                     
                     if UIApplication.shared.applicationState == .active {
                         // alert 
-                        self.displayAlertMessage(title: "You have a new reminder", message: message)
+//                        self.displayAlertMessage(title: "You have a new reminder", message: message)
                         
                     }
                     else
@@ -517,7 +517,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                                                 
                                                 DispatchQueue.main.async( execute: {
                                                     
-//                                                    self.collectionView.reloadData()
+                                                    self.collectionView.reloadData()
                                                     activityView.stopAnimating()
                                                 })
                                                 print(self.photos.count)
