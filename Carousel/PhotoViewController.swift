@@ -175,12 +175,15 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
 //                print(self.reminderid!)
                 let message = value?["message"] as? String ?? ""
                 let time = value?["time"]
-                let audioURL = value?["audioURL"] as? String ?? ""
+                
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let date = dateFormatter.date(from: time as! String)
                 
                 let currentDate = NSDate()
+                print(currentDate)
+                print(date)
+                
                 if date! < currentDate as Date
                 {
                     print(date)
@@ -190,48 +193,11 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                     
                     self.reminderid = value?["id"] as? String ?? ""
                     
-                    var audioFileName: String?
-                    if let audioUrl = URL(string: audioURL) {
-                        
-                        // then lets create your document folder url
-                        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                        
-                        // lets create your destination file url
-                        let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
-                        
-                        audioFileName = audioUrl.lastPathComponent
-                        print(audioUrl.lastPathComponent)
-                        print(destinationUrl)
-                        
-                        // to check if it exists before downloading it
-                        if FileManager.default.fileExists(atPath: destinationUrl.path) {
-                            print("The file already exists at path")
-                            
-                            // if the file doesn't exist
-                        } else {
-                            
-                            // you can use NSURLSession.sharedSession to download the data asynchronously
-                            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
-                                guard let location = location, error == nil else { return }
-                                do {
-                                    // after downloading your file you need to move it to your destination url
-                                    try FileManager.default.moveItem(at: location, to: destinationUrl)
-                                    print("File moved to documents folder")
-                                } catch let error as NSError {
-                                    print(error.localizedDescription)
-                                }
-                            }).resume()
-                        }
-                    }
                     
                     
-                    if UIApplication.shared.applicationState == .active {
-                        // alert 
-//                        self.displayAlertMessage(title: "You have a new reminder", message: message)
-                        
-                    }
-                    else
-                    {
+                    
+
+                    
                         if #available(iOS 10.0, *) {
                             // NSMutable notification
                             let mes = message
@@ -257,7 +223,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                             content.categoryIdentifier = "UYLReminderCategory"
                             content.userInfo = ["Type": "timerDone"]
                             //        content.badge = 1
-                            print(audioFileName)
+                            
                             content.sound = UNNotificationSound.default()
                             //                        content.sound = UNNotificationSound.init(named: "reminderSound.m4a")
                             
@@ -294,7 +260,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
                             notification.soundName = UILocalNotificationDefaultSoundName
                             UIApplication.shared.scheduleLocalNotification(notification)
                         }
-                    }
+                    
                     
                     
 //                    if UIApplication.shared.applicationState == .active {
@@ -461,7 +427,7 @@ class PhotoViewController: UIViewController, CollectionViewScrolling, UNUserNoti
     {
         var message = timer.userInfo as! String
         let alertController = UIAlertController(title: "New Reminder Attention", message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK, I see", style: .default, handler: nil)
+        let alertAction = UIAlertAction(title: "Will do it", style: .default, handler: nil)
         alertController.addAction(alertAction)
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
